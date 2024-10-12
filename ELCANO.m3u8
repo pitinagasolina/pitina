@@ -1,9 +1,5 @@
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV", M+ LaLiga 1080P
 plugin://script.module.horus?action=play&id=aa82e7d4f03061f2144a2f4be22f2e2210d42280
-
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV", M+ LaLiga 1080P
-https://github.com/dguirao99/florentino/blob/main/NBA-2024-10-09_GSW%40SAC_ESPN.torrent
-
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV", M+ LaLiga 1080 MultiAudio
 plugin://script.module.horus?action=play&id=7d8c87e057be98f00f22e23b23fbf08999e4b02f
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV", M+ LaLiga 1080 MultiAudio
