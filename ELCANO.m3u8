@@ -1,4 +1,6 @@
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV", M+ LaLiga 1080P
+plugin://script.module.horus?action=play&url=magnet:?xt=urn:btih:QKY4ZZV7EADPP6VIO5Q5HTPC544VUDTL&dn=NBA-2024.10.18_Mia%40Mem_720pier.mkv&xl=4509175005&tr=https%3A%2F%2F720pier.ru%2Ftracker%2Fannounce.php%3Fpasskey%3D740uoiydzoctuxz16b48kq9zm7wxvkb4
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV", M+ LaLiga 1080P
 plugin://script.module.horus?action=play&id=aa82e7d4f03061f2144a2f4be22f2e2210d42280
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV", M+ LaLiga 1080 MultiAudio
 plugin://script.module.horus?action=play&id=7d8c87e057be98f00f22e23b23fbf08999e4b02f
