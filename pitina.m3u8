@@ -45,17 +45,17 @@ plugin://script.module.horus?action=play&id=ad372cba73aa0ece207a79532b3e30b73113
 plugin://script.module.horus?action=play&id=d59fe9978eed49f256b312a60671b5bce43d3f24
 
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 1080
-plugin://script.module.horus?action=play&id=8ca07071b39185431f8e940ec98d1add9e561639
+plugin://script.module.horus?action=play&id=7cf0086fa7d478f51dbba952865c79e66cb9add5
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 720
-plugin://script.module.horus?action=play&id=eaff9293c76a324c750ef5094c2a4e2c96518d1f
+plugin://script.module.horus?action=play&id=35c7f0c966ecde3390f4510bb4caded40018c07a
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 2", DAZN 2 1080
-plugin://script.module.horus?action=play&id=60dbeeb299ec04bf02bc7426d827547599d3d9fc
+plugin://script.module.horus?action=play&id=ca923c9873fd206a41c1e83ff8fc40e3cf323c9a
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 2", DAZN 2 720
-plugin://script.module.horus?action=play&id=7aa402bab9fff43258fbcf401881a39475f30aaf
+plugin://script.module.horus?action=play&id=d03c13b6723f66155d7a0df3692a3b073fe630f2
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 3", DAZN 3 1080
-plugin://script.module.horus?action=play&id=a8ffddef56f082d4bb5c0be0d3d2fdd8c16dbd97
+plugin://script.module.horus?action=play&id=19cd05c7ae26f22737ae5728b571ca36abd8a2e8
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 4", DAZN 4 1080
-plugin://script.module.horus?action=play&id=2fcdf7a19c0858f686efdfabd3c8c2b92bf6bcfd
+plugin://script.module.horus?action=play&id=4e83f23945ab3e43982045f88ec31daaa4683102
 
 #EXTINF:-1 group-title="LaLiga" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 1
 plugin://script.module.horus?action=play&id=c1ee6e1e0ef5928d8261f855c417de21794f437d
