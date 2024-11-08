@@ -123,16 +123,16 @@ plugin://script.module.horus?action=play&id=446e73a22582921393b020ed08b768ad8e14
 #EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 8" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga Hypermotion 8
 plugin://script.module.horus?action=play&id=4d52fc1994fe927702aeb7bc8778e2f23b1260e2
 
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ LaLiga TV 3 HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c6/Movistar_Plus%2B_Supercopa_de_España_logo_2023.png", Copa 1080
-acestream://8ba764f6a3bce6eae87ec71208fad1aa3a20528d
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ LaLiga TV 3 HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c6/Movistar_Plus%2B_Supercopa_de_España_logo_2023.png", Copa 1080 plus
-acestream://d6cdd724a97fcf851e7ef641c28d6beb8663496e
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ LaLiga TV 3 HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c6/Movistar_Plus%2B_Supercopa_de_España_logo_2023.png", Copa 1080 MultiAudio
-acestream://3a4c8ac955d451bf3c29b45256e74aa0ea82d281
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ LaLiga TV 3 HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c6/Movistar_Plus%2B_Supercopa_de_España_logo_2023.png", Copa 1080
-acestream://7d70685696722c2b1b48a5ae1a7f92c445d9443d
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ LaLiga TV 3 HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/c/c6/Movistar_Plus%2B_Supercopa_de_España_logo_2023.png", Copa 720
-acestream://dab7cab5d6d177df36c3b333ca363c2266d91a03
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 1080
+plugin://script.module.horus?action=play&id=8ba764f6a3bce6eae87ec71208fad1aa3a20528d
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 1080 plus
+plugin://script.module.horus?action=play&id=d6cdd724a97fcf851e7ef641c28d6beb8663496e
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 1080 MultiAudio
+plugin://script.module.horus?action=play&id=3a4c8ac955d451bf3c29b45256e74aa0ea82d281
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 1080
+plugin://script.module.horus?action=play&id=7d70685696722c2b1b48a5ae1a7f92c445d9443d
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 720
+plugin://script.module.horus?action=play&id=dab7cab5d6d177df36c3b333ca363c2266d91a03
 
 #EXTINF:-1 group-title="British" tvg-id="SkySportsMainEvent.uk" tvg-logo="https://skymediaglobal.b-cdn.net/wp-content/uploads/2020/09/Sky-Sports-ME-2020-logo-250.png", Sky Sports Main Event UK
 plugin://script.module.horus?action=play&id=eab7aeef0218ce8b0752e596e4792b69eda4df5e
