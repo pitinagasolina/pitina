@@ -1,7 +1,0 @@
-#EXTM3U
-#EXTINF:-1 acestream-autosearch="1" group-title="amateur",DAZN La Liga HD
-acestream://ec29289b0b14756e686c03a501bae1efa05be70c
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080P
-acestream://aa82e7d4f03061f2144a2f4be22f2e2210d42280
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", VAMOS
-acestream://d03c13b6723f66155d7a0df3692a3b073fe630f2
