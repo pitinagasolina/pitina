@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1, DAZN La Liga HD
+#EXTVLCOPT:deinterlace=-1
+#EXTVLCOPT:deinterlace-mode=bob
+acestream://110d441ddc9713a7452588770d2bc85504672f47/
