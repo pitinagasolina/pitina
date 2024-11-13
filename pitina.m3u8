@@ -1,4 +1,4 @@
-#EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
+#EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv_color1.xml.gz"
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080P
 plugin://script.module.horus?action=play&id=aa82e7d4f03061f2144a2f4be22f2e2210d42280
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV HD", M+ LaLiga 1080 MultiAudio
