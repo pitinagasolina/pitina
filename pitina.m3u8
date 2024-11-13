@@ -111,13 +111,13 @@ plugin://script.module.horus?action=play&id=3a74d9869b13e763476800740c6625e715a3
 plugin://script.module.horus?action=play&id=639c561dd57fa3fc91fde715caeb696c5efb7ce7
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 3", M+ Deportes 3 1080
 plugin://script.module.horus?action=play&id=571bff4d12b1791eb99dbf20bec38e630693a6a3
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 4" tvg-logo="https://www.movistarplus.es/recorte/m-DPBLAN/guiamovil/USOP3.png", M+ Deportes 4 1080
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 4", M+ Deportes 4 1080
 plugin://script.module.horus?action=play&id=b4d1308a61e4caf8c06ac3d6ce89d165c015c2fb
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 5" tvg-logo="https://www.movistarplus.es/recorte/m-DPBLAN/guiamovil/USOP11.png", M+ Deportes 5 1080
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 5", M+ Deportes 5 1080
 plugin://script.module.horus?action=play&id=fcc0fd75bf1dba40b108fcf0d3514e0e549bfbac
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 6" tvg-logo="https://www.movistarplus.es/recorte/m-DPBLAN/guiamovil/MULTI8.png", M+ Deportes 6 1080
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 6", M+ Deportes 6 1080
 plugin://script.module.horus?action=play&id=cc5782d37ae6b6e0bab396dd64074982d0879046
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 7" tvg-logo="https://www.movistarplus.es/recorte/m-DPBLAN/guiamovil/MULTI6.png", M+ Deportes 7 1080
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 7", M+ Deportes 7 1080
 plugin://script.module.horus?action=play&id=070f82d6443a52962d6a2ed9954c979b29404932
 
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Golf", M+ Golf 1080
@@ -135,7 +135,7 @@ plugin://script.module.horus?action=play&id=d81b4f2f3fde433539c097b2edc9b587ca47
 plugin://script.module.horus?action=play&id=2709d0ab86cb6ce7ba4d3ad188d7fa80668f2924
 #EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 3", LaLiga Hypermotion 3
 plugin://script.module.horus?action=play&id=424c89c7c0f251051269b578f40d13d192cf2c2d
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 4" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga Hypermotion 4
+#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 4" tvg-logo="https://www.movistarplus.es/recorte/m-NEO/canal/MLIGS4.png", LaLiga Hypermotion 4
 plugin://script.module.horus?action=play&id=2cacf21476b036e319bcb7c7e747766e6ccc082e
 #EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 5" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga Hypermotion 5
 plugin://script.module.horus?action=play&id=a1146358aa50c99c887108b17f62f9264186a16a
@@ -153,34 +153,34 @@ plugin://script.module.horus?action=play&id=b545ed0de344cfb830721fb961fddb208d39
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 720
 plugin://script.module.horus?action=play&id=dab7cab5d6d177df36c3b333ca363c2266d91a03
 
-#EXTINF:-1 group-title="British" tvg-id="SkySportsMainEvent.uk" tvg-logo="https://skymediaglobal.b-cdn.net/wp-content/uploads/2020/09/Sky-Sports-ME-2020-logo-250.png", Sky Sports Main Event UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Main Event", Sky Sports Main Event UK
 plugin://script.module.horus?action=play&id=eab7aeef0218ce8b0752e596e4792b69eda4df5e
-#EXTINF:-1 group-title="British" tvg-id="SkySportsPremierLeague.uk" tvg-logo="https://ia800808.us.archive.org/17/items/SkySportsPremierLeague_201708/sky%20sports%20premier%20league.png", Sky Sports Premier League UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Premier League", Sky Sports Premier League UK
 plugin://script.module.horus?action=play&id=ec5eabe0144ccfffc337e1d6708e2afb81d0638e
-#EXTINF:-1 group-title="British" tvg-id="SkySportsFootball.uk" tvg-logo="https://skymediaglobal.b-cdn.net/wp-content/uploads/2020/09/Sky-Sports-Football-2020-logo-250.png", Sky Sports Football UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Football", Sky Sports Football UK
 plugin://script.module.horus?action=play&id=8dbe2d515e9131fa311353537736f8c94be9b26d
-#EXTINF:-1 group-title="British" tvg-id="SkySportsArena.uk" tvg-logo="https://skymediaglobal.b-cdn.net/wp-content/uploads/2020/09/Sky-Sports-Arena-2020-logo-250.png", Sky Sports Arena UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Arena", Sky Sports Arena UK
 plugin://script.module.horus?action=play&id=d317a003e8047da2c36a2a2bb2289578c9a3b79c
-#EXTINF:-1 group-title="British" tvg-id="SkySportF1Germany.de" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Sky_Sport_F1_-_Logo_2020.svg/1280px-Sky_Sport_F1_-_Logo_2020.svg.png", Sky Sports F1 DE
+#EXTINF:-1 group-title="British" tvg-id="DE | Sky Sport F1", Sky Sports F1 DE
 plugin://script.module.horus?action=play&id=b04372b9543d763bd2dbd2a1842d9723fd080076
 
 #EXTINF:-1 group-title="NBA" tvg-id="NBATV.us" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/1200px-NBA_TV.svg.png", NBA TV
 plugin://script.module.horus?action=play&id=e72d03fb9694164317260f684470be9ab781ed95
-#EXTINF:-1 group-title="NBA" tvg-id="ESPN.us" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/1280px-ESPN_wordmark.svg.png", ESPN US
+#EXTINF:-1 group-title="NBA" tvg-id="ESPN", ESPN US
 plugin://script.module.horus?action=play&id=4b4907de51ec11087d4bed5876f2a0c68264f442
-#EXTINF:-1 group-title="NBA" tvg-id="ESPN2.us" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/ESPN2_logo.svg/2560px-ESPN2_logo.svg.png", ESPN 2 US
+#EXTINF:-1 group-title="NBA" tvg-id="ESPN2", ESPN 2 US
 plugin://script.module.horus?action=play&id=664eb5fe460b96941aed633959a845b185cd8394
-#EXTINF:-1 group-title="NBA" tvg-id="TNTSports1.uk" tvg-logo="https://media.info/i/lf/600/1690027797/1539.png", TNT Sports 1 UK
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 1", TNT Sports 1 UK
 plugin://script.module.horus?action=play&id=efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b
-#EXTINF:-1 group-title="NBA" tvg-id="TNTSports2.uk" tvg-logo="https://media.info/i/lf/600/1690027877/1540.png", TNT Sports 2 UK
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 2", TNT Sports 2 UK
 plugin://script.module.horus?action=play&id=d63d8a57cf471394bfa9f619bbd68b01ae27a801
-#EXTINF:-1 group-title="NBA" tvg-id="TNTSports3.uk" tvg-logo="https://media.info/i/lf/600/1690027954/5712.png", TNT Sports 3 UK
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 3", TNT Sports 3 UK
 plugin://script.module.horus?action=play&id=5f966c123759de46dff29c379266b7a403452033
-#EXTINF:-1 group-title="NBA" tvg-id="TNTSports4.uk" tvg-logo="https://media.info/i/lf/600/1690027975/1491.png", TNT Sports 4 UK
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 4", TNT Sports 4 UK
 plugin://script.module.horus?action=play&id=fc5089d8e1519872fdf951779ccbca913acc9bce
-#EXTINF:-1 group-title="NBA" tvg-id="FoxSports1.us" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Fox_Sports_1_logo.svg/1280px-Fox_Sports_1_logo.svg.png", FOX Sports 1 US
+#EXTINF:-1 group-title="NBA" tvg-id="FOX SPORTS", FOX Sports 1 US
 plugin://script.module.horus?action=play&id=c9c062941fbecb16ce29437f346ea7177d720898
-#EXTINF:-1 group-title="NBA" tvg-id="FoxSports2.us" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Fox_sports_2_logo.svg/1024px-Fox_sports_2_logo.svg.png", FOX Sports 2 US
+#EXTINF:-1 group-title="NBA" tvg-id="FOX SPORTS 2", FOX Sports 2 US
 plugin://script.module.horus?action=play&id=cba8d369eac629b577750edb90370cd1c5fb03b7
 
 #EXTINF:-1 group-title="Otros deportes" tvg-id="Eurosport 1", Eurosport 1 1080
@@ -193,15 +193,15 @@ plugin://script.module.horus?action=play&id=d4627f7b6b237a8556819445b3283d866cac
 #EXTINF:-1 group-title="Otros deportes" tvg-id="Teledeporte", tdp 1080
 plugin://script.module.horus?action=play&id=e2395d28ad19423212fd3aa0e81f387db3e8bb9f
 
-#EXTINF:-1 group-title="Otros deportes" tvg-id="TennisChannel.us" tvg-logo="https://upload.wikimedia.org/wikipedia/fr/thumb/4/4c/Logo_Tennis_Channel.svg/1200px-Logo_Tennis_Channel.svg.png", Tennis Channel
+#EXTINF:-1 group-title="Otros deportes" tvg-id="Tennis Channel", Tennis Channel
 plugin://script.module.horus?action=play&id=9292d3b32432efb56db4014933cbdec0a7cf2e36
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Sport TV1 POR HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Sport_TV1_%282023%29.svg/1200px-Sport_TV1_%282023%29.svg.png?20231021014440", Sport TV 1 1080
+#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 1", Sport TV 1 POR
 plugin://script.module.horus?action=play&id=ce235921dac95e1da2dd5e54673c2fecb9e806de
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Sport TV2 POR HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Sport_TV2_%282023%29.svg/1200px-Sport_TV2_%282023%29.svg.png", Sport TV 2 1080
+#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 2", Sport TV 2 POR
 plugin://script.module.horus?action=play&id=396d82ca6f5445abcd32e6b609d67e332ee12ace
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Sport TV3 POR HD" tvg-logo="https://cdn.livesoccertv.com/images/channels/thumbnails/sport-tv3.png", Sport TV 3 1080
+#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 3", Sport TV 3 POR
 plugin://script.module.horus?action=play&id=f8cb9d9e3077eb3ae417b2d95a69c5f590760eb9
-#EXTINF:-1 group-title="Otros deportes" tvg-id="I873.76943.schedulesdirect.org" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/04/BeIN_Sports_En_Español.png", beIN SPORTS ñ
+#EXTINF:-1 group-title="Otros deportes" tvg-id="beIN SPORTS ñ", beIN SPORTS ñ
 plugin://script.module.horus?action=play&id=41af6926a6010b68ba2540975761436bb077748f
 
 #EXTINF:-1 group-title="Otros" tvg-id="La 1 HD" m-NEONEGR/canal/TVE", La1
