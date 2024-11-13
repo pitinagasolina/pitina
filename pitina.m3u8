@@ -153,22 +153,22 @@ plugin://script.module.horus?action=play&id=b545ed0de344cfb830721fb961fddb208d39
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 720
 plugin://script.module.horus?action=play&id=dab7cab5d6d177df36c3b333ca363c2266d91a03
 
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Main Event", Sky Sports Main Event UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Main Event", Sky Sport Main Event UK
 plugin://script.module.horus?action=play&id=eab7aeef0218ce8b0752e596e4792b69eda4df5e
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Premier League", Sky Sports Premier League UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Premier League", Sky Sport Premier League UK
 plugin://script.module.horus?action=play&id=ec5eabe0144ccfffc337e1d6708e2afb81d0638e
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Football", Sky Sports Football UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Football", Sky Sport Football UK
 plugin://script.module.horus?action=play&id=8dbe2d515e9131fa311353537736f8c94be9b26d
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Arena", Sky Sports Arena UK
+#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Arena", Sky Sport Arena UK
 plugin://script.module.horus?action=play&id=d317a003e8047da2c36a2a2bb2289578c9a3b79c
-#EXTINF:-1 group-title="British" tvg-id="DE | Sky Sport F1", Sky Sports F1 DE
+#EXTINF:-1 group-title="British" tvg-id="DE | Sky Sport F1", Sky Sport F1 DE
 plugin://script.module.horus?action=play&id=b04372b9543d763bd2dbd2a1842d9723fd080076
 
 #EXTINF:-1 group-title="NBA" tvg-id="NBATV.us" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/1200px-NBA_TV.svg.png", NBA TV
 plugin://script.module.horus?action=play&id=e72d03fb9694164317260f684470be9ab781ed95
-#EXTINF:-1 group-title="NBA" tvg-id="ESPN", ESPN US
+#EXTINF:-1 group-title="NBA" tvg-id="ESPN", ESPN
 plugin://script.module.horus?action=play&id=4b4907de51ec11087d4bed5876f2a0c68264f442
-#EXTINF:-1 group-title="NBA" tvg-id="ESPN2", ESPN 2 US
+#EXTINF:-1 group-title="NBA" tvg-id="ESPN2", ESPN 2
 plugin://script.module.horus?action=play&id=664eb5fe460b96941aed633959a845b185cd8394
 #EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 1", TNT Sports 1 UK
 plugin://script.module.horus?action=play&id=efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b
