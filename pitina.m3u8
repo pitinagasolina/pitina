@@ -84,8 +84,6 @@ plugin://script.module.horus?action=play&id=c1ee6e1e0ef5928d8261f855c417de21794f
 #EXTINF:-1 group-title="LaLiga" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 2
 plugin://script.module.horus?action=play&id=8677d339ecddd75165c0015025f598b6215974cf
 
-#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 UHD
-plugin://script.module.horus?action=play&id=c021e3af42b9cd3743817a2c6258e0986666dd73
 #EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
 plugin://script.module.horus?action=play&id=5789ca155323664edd293b848606688edf803f4d
 #EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
