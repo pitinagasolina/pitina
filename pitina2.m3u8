@@ -167,50 +167,50 @@ acestream://446e73a22582921393b020ed08b768ad8e14d754
 #EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 8" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 8
 acestream://4d52fc1994fe927702aeb7bc8778e2f23b1260e2
 
-#EXTINF:-1 group-title="Otros deportes" tvg-id="UK | Sky Sport Main Event", Sky Sport Main Event UK
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Main Event", Sky Sport Main Event UK
 acestream://eab7aeef0218ce8b0752e596e4792b69eda4df5e
-#EXTINF:-1 group-title="Otros deportes" tvg-id="UK | Sky Sport Premier League", Sky Sport Premier League UK
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Premier League", Sky Sport Premier League UK
 acestream://ec5eabe0144ccfffc337e1d6708e2afb81d0638e
-#EXTINF:-1 group-title="Otros deportes" tvg-id="UK | Sky Sport Football", Sky Sport Football UK
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Football", Sky Sport Football UK
 acestream://8dbe2d515e9131fa311353537736f8c94be9b26d
-#EXTINF:-1 group-title="Otros deportes" tvg-id="UK | Sky Sport Arena", Sky Sport Arena UK
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Arena", Sky Sport Arena UK
 acestream://d317a003e8047da2c36a2a2bb2289578c9a3b79c
-#EXTINF:-1 group-title="Otros deportes" tvg-id="DE | Sky Sport F1", Sky Sport F1 DE
+#EXTINF:-1 group-title="Otros" tvg-id="DE | Sky Sport F1", Sky Sport F1 DE
 acestream://b04372b9543d763bd2dbd2a1842d9723fd080076
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Fox.Sports.1.HDTV.(FS1HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-1-us.png", FOX Sports 1
+#EXTINF:-1 group-title="Otros" tvg-id="Fox.Sports.1.HDTV.(FS1HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-1-us.png", FOX Sports 1
 acestream://c9c062941fbecb16ce29437f346ea7177d720898
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Fox.Sports.2.HDTV.(FS2HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-2-us.png", FOX Sports 2
+#EXTINF:-1 group-title="Otros" tvg-id="Fox.Sports.2.HDTV.(FS2HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-2-us.png", FOX Sports 2
 acestream://cba8d369eac629b577750edb90370cd1c5fb03b7
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Eurosport 1", Eurosport 1
+#EXTINF:-1 group-title="Otros" tvg-id="Eurosport 1", Eurosport 1
 acestream://16ffa1713f42aa27317ee039a2bd0cdbc89a1580
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Eurosport 2", Eurosport 2
+#EXTINF:-1 group-title="Otros" tvg-id="Eurosport 2", Eurosport 2
 acestream://c373da9e901d414b7384e671112e64d5a2310c29
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Tennis Channel", Tennis Channel
+#EXTINF:-1 group-title="Otros" tvg-id="Tennis Channel", Tennis Channel
 acestream://9292d3b32432efb56db4014933cbdec0a7cf2e36
-#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 1", Sport TV 1
+#EXTINF:-1 group-title="Otros" tvg-id="PT | Sport TV 1", Sport TV 1
 acestream://ce235921dac95e1da2dd5e54673c2fecb9e806de
-#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 2", Sport TV 2
+#EXTINF:-1 group-title="Otros" tvg-id="PT | Sport TV 2", Sport TV 2
 acestream://396d82ca6f5445abcd32e6b609d67e332ee12ace
-#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 3", Sport TV 3
+#EXTINF:-1 group-title="Otros" tvg-id="PT | Sport TV 3", Sport TV 3
 acestream://f8cb9d9e3077eb3ae417b2d95a69c5f590760eb9
-#EXTINF:-1 group-title="Otros deportes" tvg-id="beIN.Sports.HDTV.(Spanish).(beINHD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bein-sports-espanol-us.png", beIN SPORTS ñ
+#EXTINF:-1 group-title="Otros" tvg-id="beIN.Sports.HDTV.(Spanish).(beINHD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bein-sports-espanol-us.png", beIN SPORTS ñ
 acestream://41af6926a6010b68ba2540975761436bb077748f
-#EXTINF:-1 group-title="Otros deportes" tvg-id="GOL PLAY", GOL Play
+#EXTINF:-1 group-title="Otros" tvg-id="GOL PLAY", GOL Play
 acestream://d4627f7b6b237a8556819445b3283d866caceca2
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Teledeporte", Teledeporte
+#EXTINF:-1 group-title="Otros" tvg-id="Teledeporte", Teledeporte
 acestream://e2395d28ad19423212fd3aa0e81f387db3e8bb9f
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Real Madrid TV", Real Madrid TV
+#EXTINF:-1 group-title="Otros" tvg-id="Real Madrid TV", Real Madrid TV
 acestream://0827cf7d290967985892965c6e61244a479d6dcd
 
-#EXTINF:-1 group-title="Otros" tvg-id="La 1 HD", La1
+#EXTINF:-1 group-title="TDT" tvg-id="La 1 HD", La1
 acestream://b897de3e62d7c6bee9ef1107d972f3d1075e03ff
-#EXTINF:-1 group-title="Otros" tvg-id="La 2", La2
+#EXTINF:-1 group-title="TDT" tvg-id="La 2", La2
 acestream://52d3738871536dce27db50f044d3294a4c52253d
-#EXTINF:-1 group-title="Otros" tvg-id="Cuatro", Cuatro
+#EXTINF:-1 group-title="TDT" tvg-id="Cuatro", Cuatro
 acestream://e8eec35f4662be1af96963245bfa88fb7d0242c4
-#EXTINF:-1 group-title="Otros" tvg-id="Telecinco", Telecinco
+#EXTINF:-1 group-title="TDT" tvg-id="Telecinco", Telecinco
 acestream://bb1982ae8d2d409d4ccd7a9f498042684e3532b5
-#EXTINF:-1 group-title="Otros" tvg-id="24 Horas", 24 Horas
+#EXTINF:-1 group-title="TDT" tvg-id="24 Horas", 24 Horas
 acestream://2191383ed85d20f5f6759785e14a4aff8a3ab8f4
-#EXTINF:-1 group-title="Otros" tvg-id="Be Mad", BeMad
+#EXTINF:-1 group-title="TDT" tvg-id="Be Mad", BeMad
 acestream://5c267a00f264736c1d47c1cc3e754447ca8f770c
