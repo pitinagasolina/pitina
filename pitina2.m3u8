@@ -193,7 +193,7 @@ acestream://ce235921dac95e1da2dd5e54673c2fecb9e806de
 acestream://396d82ca6f5445abcd32e6b609d67e332ee12ace
 #EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 3", Sport TV 3 POR
 acestream://f8cb9d9e3077eb3ae417b2d95a69c5f590760eb9
-#EXTINF:-1 group-title="Otros deportes" tvg-id="beIN.Sports.HDTV.(Spanish).(beINHD).us", beIN SPORTS ñ
+#EXTINF:-1 group-title="Otros deportes" tvg-id="beIN.Sports.HDTV.(Spanish).(beINHD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bein-sports-espanol-us.png", beIN SPORTS ñ
 acestream://41af6926a6010b68ba2540975761436bb077748f
 #EXTINF:-1 group-title="Otros deportes" tvg-id="GOL PLAY", GOL Play 1080
 acestream://d4627f7b6b237a8556819445b3283d866caceca2
