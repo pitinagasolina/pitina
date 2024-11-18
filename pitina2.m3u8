@@ -1,9 +1,9 @@
 #EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiaiptv.xml"
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080P
 acestream://94d34491106e00394835c8cb68aa94481339b53f
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080 MultiAudio
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080
 acestream://d3de78aebe544611a2347f54d5796bd87f16c92d
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080 MultiAudio
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080
 acestream://6d05b31e5e8fdae312fbd57897363a7b10ddb163
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 720
 acestream://1bc437bce57b4b0450f6d1f8d818b7e97000745e
@@ -20,15 +20,15 @@ acestream://835639b89db00cc0d94660da3c10b6e38bfbcdc1
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 4", M+ LaLiga 4 1080
 acestream://eee6144058d6106c243cbde774b05bff4a704a86
 
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080 MultiAudio
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080
 acestream://110d441ddc9713a7452588770d2bc85504672f47
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080 MultiAudio
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080
 acestream://ec29289b0b14756e686c03a501bae1efa05be70c
 #EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 720
 acestream://8c8c1e047a1c5ed213ba74722a5345dc55c3c0eb
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 1080 MultiAudio
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 1080
 acestream://97ba38d47680954be40e48bd8f43e17222fefecb
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 720 MultiAudio
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 720
 acestream://51dbbfb42f8091e4ea7a2186b566a40e780953d9
 
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 1080
@@ -38,9 +38,9 @@ acestream://b545ed0de344cfb830721fb961fddb208d39d19a
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 720
 acestream://dab7cab5d6d177df36c3b333ca363c2266d91a03
 
-#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080 MultiAudio
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080
 acestream://0a26e20f39845e928411e09a124374fccb6e1478
-#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080 MultiAudio
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080
 acestream://775abd8697715c48a357906d40734ccd2a10513c
 #EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080P
 acestream://1d79a7543d691666135669f89f3541f54e2dd0a9
@@ -203,17 +203,17 @@ acestream://f8cb9d9e3077eb3ae417b2d95a69c5f590760eb9
 #EXTINF:-1 group-title="Otros deportes" tvg-id="beIN SPORTS ñ", beIN SPORTS ñ
 acestream://41af6926a6010b68ba2540975761436bb077748f
 
-#EXTINF:-1 group-title="Otros" tvg-id="La 1 HD" m-NEONEGR/canal/TVE", La1
+#EXTINF:-1 group-title="Otros" tvg-id="La 1 HD", La1
 acestream://b897de3e62d7c6bee9ef1107d972f3d1075e03ff
-#EXTINF:-1 group-title="Otros" tvg-id="La 2" m-NEONEGR/canal/LA2", La2
+#EXTINF:-1 group-title="Otros" tvg-id="La 2", La2
 acestream://52d3738871536dce27db50f044d3294a4c52253d
-#EXTINF:-1 group-title="Otros" tvg-id="24 horas" m-NEONEGR/canal/24 horas", 24h
+#EXTINF:-1 group-title="Otros" tvg-id="24 horas", 24 horas
 acestream://2191383ed85d20f5f6759785e14a4aff8a3ab8f4
-#EXTINF:-1 group-title="Otros" tvg-id="Cuatro" m-NEONEGR/canal/C4", Cuatro 1080
+#EXTINF:-1 group-title="Otros" tvg-id="Cuatro", Cuatro 1080
 acestream://e8eec35f4662be1af96963245bfa88fb7d0242c4
-#EXTINF:-1 group-title="Otros" tvg-id="Be Mad" m-NEONEGR/canal/BEMAD", BeMad 1080
+#EXTINF:-1 group-title="Otros" tvg-id="Be Mad", BeMad 1080
 acestream://5c267a00f264736c1d47c1cc3e754447ca8f770c
-#EXTINF:-1 group-title="Otros" tvg-id="Telecinco" m-NEONEGR/canal/T5", Telecinco 1080
+#EXTINF:-1 group-title="Otros" tvg-id="Telecinco", Telecinco 1080
 acestream://bb1982ae8d2d409d4ccd7a9f498042684e3532b5
-#EXTINF:-1 group-title="Otros" tvg-id="Real Madrid TV" m-NEONEGR/canal/Real Madrid TV", Real Madrid TV
+#EXTINF:-1 group-title="Otros" tvg-id="Real Madrid TV", Real Madrid TV
 acestream://0827cf7d290967985892965c6e61244a479d6dcd
