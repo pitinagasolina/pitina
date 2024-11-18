@@ -68,11 +68,6 @@ acestream://df7d145fcaf0566db4098d2f10236185d92bc9fd
 #EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 13", ML Campeones 13
 acestream://bdfe9ebe62d690c1b13eef4346d72e618cfbe804
 
-#EXTINF:-1 group-title="LaLiga" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 1
-acestream://c1ee6e1e0ef5928d8261f855c417de21794f437d
-#EXTINF:-1 group-title="LaLiga" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 2
-acestream://8677d339ecddd75165c0015025f598b6215974cf
-
 #EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
 acestream://5789ca155323664edd293b848606688edf803f4d
 #EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
@@ -124,6 +119,11 @@ acestream://d03c13b6723f66155d7a0df3692a3b073fe630f2
 acestream://19cd05c7ae26f22737ae5728b571ca36abd8a2e8
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 4", DAZN 4 1080
 acestream://4e83f23945ab3e43982045f88ec31daaa4683102
+
+#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 1
+acestream://c1ee6e1e0ef5928d8261f855c417de21794f437d
+#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 2
+acestream://8677d339ecddd75165c0015025f598b6215974cf
 
 #EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga Hypermotion 1080
 acestream://b2706a7ffbea236a3b398139a3a606ada664c0eb
