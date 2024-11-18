@@ -75,13 +75,6 @@ acestream://df7d145fcaf0566db4098d2f10236185d92bc9fd
 #EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 13", ML Campeones 13
 acestream://bdfe9ebe62d690c1b13eef4346d72e618cfbe804
 
-#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
-acestream://5789ca155323664edd293b848606688edf803f4d
-#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
-acestream://9dad717d99b29a05672166258a77c25b57713dd5
-#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 720
-acestream://e1fcad9de0c782c157fde6377805c58297ab65c2
-
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="Movistar Plus+ HD", Movistar Plus+ 1080
 acestream://56ac8e227d526e722624675ccdd91b0cc850582f
 
@@ -127,6 +120,13 @@ acestream://d63d8a57cf471394bfa9f619bbd68b01ae27a801
 acestream://5f966c123759de46dff29c379266b7a403452033
 #EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 4", TNT Sports 4
 acestream://fc5089d8e1519872fdf951779ccbca913acc9bce
+
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
+acestream://5789ca155323664edd293b848606688edf803f4d
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
+acestream://9dad717d99b29a05672166258a77c25b57713dd5
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 720
+acestream://e1fcad9de0c782c157fde6377805c58297ab65c2
 
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 1080
 acestream://7cf0086fa7d478f51dbba952865c79e66cb9add5
