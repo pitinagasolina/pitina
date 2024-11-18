@@ -1,5 +1,5 @@
 #EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiaiptv.xml"
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080P
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080
 acestream://94d34491106e00394835c8cb68aa94481339b53f
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080
 acestream://d3de78aebe544611a2347f54d5796bd87f16c92d
