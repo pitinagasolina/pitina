@@ -177,9 +177,9 @@ acestream://8dbe2d515e9131fa311353537736f8c94be9b26d
 acestream://d317a003e8047da2c36a2a2bb2289578c9a3b79c
 #EXTINF:-1 group-title="Otros deportes" tvg-id="DE | Sky Sport F1", Sky Sport F1 DE
 acestream://b04372b9543d763bd2dbd2a1842d9723fd080076
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Fox.Sports.1.HDTV.(FS1HD).us", FOX Sports 1 US
+#EXTINF:-1 group-title="Otros deportes" tvg-id="Fox.Sports.1.HDTV.(FS1HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-1-us.png" group-title="SPORTS (DADDY LIVE)", FOX Sports 1 US
 acestream://c9c062941fbecb16ce29437f346ea7177d720898
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Fox.Sports.2.HDTV.(FS2HD).us", FOX Sports 2 US
+#EXTINF:-1 group-title="Otros deportes" tvg-id="Fox.Sports.2.HDTV.(FS2HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-2-us.png" group-title="SPORTS (DADDY LIVE)", FOX Sports 2 US
 acestream://cba8d369eac629b577750edb90370cd1c5fb03b7
 #EXTINF:-1 group-title="Otros deportes" tvg-id="Eurosport 1", Eurosport 1 1080
 acestream://16ffa1713f42aa27317ee039a2bd0cdbc89a1580
@@ -208,9 +208,9 @@ acestream://b897de3e62d7c6bee9ef1107d972f3d1075e03ff
 acestream://52d3738871536dce27db50f044d3294a4c52253d
 #EXTINF:-1 group-title="Otros" tvg-id="24 Horas", 24 Horas
 acestream://2191383ed85d20f5f6759785e14a4aff8a3ab8f4
-#EXTINF:-1 group-title="Otros" tvg-id="Cuatro", Cuatro 1080
+#EXTINF:-1 group-title="Otros" tvg-id="Cuatro", Cuatro
 acestream://e8eec35f4662be1af96963245bfa88fb7d0242c4
-#EXTINF:-1 group-title="Otros" tvg-id="Be Mad", BeMad 1080
+#EXTINF:-1 group-title="Otros" tvg-id="Be Mad", BeMad
 acestream://5c267a00f264736c1d47c1cc3e754447ca8f770c
-#EXTINF:-1 group-title="Otros" tvg-id="Telecinco", Telecinco 1080
+#EXTINF:-1 group-title="Otros" tvg-id="Telecinco", Telecinco
 acestream://bb1982ae8d2d409d4ccd7a9f498042684e3532b5
