@@ -1,7 +1,5 @@
 #EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiaiptv.xml"
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080
-acestream://94d34491106e00394835c8cb68aa94481339b53f
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080
 acestream://d3de78aebe544611a2347f54d5796bd87f16c92d
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080
 acestream://6d05b31e5e8fdae312fbd57897363a7b10ddb163
@@ -9,6 +7,8 @@ acestream://6d05b31e5e8fdae312fbd57897363a7b10ddb163
 acestream://1bc437bce57b4b0450f6d1f8d818b7e97000745e
 #EXTINF:-1 group-title="LaLiga" tvg-id="LaLiga TV BAR HD", LaLiga TV BAR 1080
 acestream://608b0faf7d3d25f6fe5dba13d5e4b4142949990e
+#EXTINF:-1 group-title="LaLiga" tvg-id="LaLiga TV BAR HD", LaLiga TV BAR 1080
+acestream://94d34491106e00394835c8cb68aa94481339b53f
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 2 HD", M+ LaLiga TV 2 1080
 acestream://83c6c4942d69f4aa324aa746c5d7dbfd7d1572b3
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 2 HD", M+ LaLiga TV 2 720
@@ -32,11 +32,9 @@ acestream://97ba38d47680954be40e48bd8f43e17222fefecb
 acestream://51dbbfb42f8091e4ea7a2186b566a40e780953d9
 
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 1080
-acestream://307b6e84ca9620b3f7a13af143c9e4019752756a
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 1080
-acestream://b545ed0de344cfb830721fb961fddb208d39d19a
+acestream://f6beccbc4eea4bc0cda43b3e8ac14790a98b61b4
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 720
-acestream://dab7cab5d6d177df36c3b333ca363c2266d91a03
+acestream://b51f2d9a15b6956a44385b6be531bcabeb099d9d
 
 #EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080
 acestream://0a26e20f39845e928411e09a124374fccb6e1478
@@ -102,9 +100,9 @@ acestream://cc5782d37ae6b6e0bab396dd64074982d0879046
 acestream://070f82d6443a52962d6a2ed9954c979b29404932
 
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Golf", M+ Golf 1080
-acestream://858b3cf2842ebe394999275e5ebb0435f1af2ae4
+acestream://f41f1096862767289620be5bd85727f946a434db
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Golf 2", M+ Golf 2 1080
-acestream://9a4f3ae6563668b7709dac509dedc709441b3fd9
+acestream://e258e75e0e802afa5fcc53d46b47d8801a254ad5
 
 #EXTINF:-1 group-title="NBA" tvg-id="NBA.TV.HDTV.(NBA.HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nba-tv-us.png", NBA TV
 acestream://e72d03fb9694164317260f684470be9ab781ed95
@@ -122,11 +120,13 @@ acestream://5f966c123759de46dff29c379266b7a403452033
 acestream://fc5089d8e1519872fdf951779ccbca913acc9bce
 
 #EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
-acestream://5789ca155323664edd293b848606688edf803f4d
+acestream://d6281d4e6310269b416180442a470d23a4a99dc9
 #EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
-acestream://9dad717d99b29a05672166258a77c25b57713dd5
+acestream://2c6e4c897661e6b0257bfe931b66d20b2ec763b6
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
+acestream://71eef80158aa8b37f3dc59f6793c6696df9a2dfa
 #EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 720
-acestream://e1fcad9de0c782c157fde6377805c58297ab65c2
+acestream://268289e7a3c5209960b53b4d43c8c65fab294b85
 
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 1080
 acestream://7cf0086fa7d478f51dbba952865c79e66cb9add5
@@ -141,30 +141,30 @@ acestream://19cd05c7ae26f22737ae5728b571ca36abd8a2e8
 #EXTINF:-1 group-title="DAZN" tvg-id="DAZN 4", DAZN 4 1080
 acestream://4e83f23945ab3e43982045f88ec31daaa4683102
 
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 1
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 1
 acestream://c1ee6e1e0ef5928d8261f855c417de21794f437d
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 2
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 2
 acestream://8677d339ecddd75165c0015025f598b6215974cf
 
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga TV Hypermotion 1080
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga TV Hypermotion 1080
 acestream://b2706a7ffbea236a3b398139a3a606ada664c0eb
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga TV Hypermotion 720
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga TV Hypermotion 720
 acestream://121f719ebb94193c6086ef92865cf9b197750980
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga TV Hypermotion 2 1080
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga TV Hypermotion 2 1080
 acestream://0cfdfde1b70623b8c210b0f7301be2a87456481d
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga TV Hypermotion 2 720
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga TV Hypermotion 2 720
 acestream://0a335406bad0b658aeddb2d38f8c0614b2e5623a
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 3", LaLiga TV Hypermotion 3
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 3", LaLiga TV Hypermotion 3
 acestream://20196007a6697a1f11589fd4c8bab6713c265e64
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 4" tvg-logo="https://www.movistarplus.es/recorte/m-NEO/canal/MLIGS4.png", LaLiga TV Hypermotion 4
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 4" tvg-logo="https://www.movistarplus.es/recorte/m-NEO/canal/MLIGS4.png", LaLiga TV Hypermotion 4
 acestream://2cacf21476b036e319bcb7c7e747766e6ccc082e
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 5" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 5
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 5" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 5
 acestream://a1146358aa50c99c887108b17f62f9264186a16a
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 6" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 6
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 6" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 6
 acestream://7a9bb1b9cccb759c44ed84f3c1283922e6854670
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 7" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 7
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 7" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 7
 acestream://446e73a22582921393b020ed08b768ad8e14d754
-#EXTINF:-1 group-title="LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 8" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 8
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 8" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga TV Hypermotion 8
 acestream://4d52fc1994fe927702aeb7bc8778e2f23b1260e2
 
 #EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Main Event", Sky Sport Main Event UK
