@@ -195,12 +195,6 @@ acestream://396d82ca6f5445abcd32e6b609d67e332ee12ace
 acestream://f8cb9d9e3077eb3ae417b2d95a69c5f590760eb9
 #EXTINF:-1 group-title="Otros" tvg-id="beIN.Sports.HDTV.(Spanish).(beINHD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bein-sports-espanol-us.png", beIN SPORTS ñ
 acestream://41af6926a6010b68ba2540975761436bb077748f
-#EXTINF:-1 group-title="Otros" tvg-id="GOL PLAY", GOL Play
-acestream://d4627f7b6b237a8556819445b3283d866caceca2
-#EXTINF:-1 group-title="Otros" tvg-id="Teledeporte", Teledeporte
-acestream://e2395d28ad19423212fd3aa0e81f387db3e8bb9f
-#EXTINF:-1 group-title="Otros" tvg-id="Real Madrid TV", Real Madrid TV
-acestream://0827cf7d290967985892965c6e61244a479d6dcd
 
 #EXTINF:-1 group-title="TDT" tvg-id="La 1 HD", La1
 acestream://b897de3e62d7c6bee9ef1107d972f3d1075e03ff
@@ -210,6 +204,12 @@ acestream://52d3738871536dce27db50f044d3294a4c52253d
 acestream://e8eec35f4662be1af96963245bfa88fb7d0242c4
 #EXTINF:-1 group-title="TDT" tvg-id="Telecinco", Telecinco
 acestream://bb1982ae8d2d409d4ccd7a9f498042684e3532b5
+#EXTINF:-1 group-title="TDT" tvg-id="GOL PLAY", GOL Play
+acestream://d4627f7b6b237a8556819445b3283d866caceca2
+#EXTINF:-1 group-title="TDT" tvg-id="Teledeporte", Teledeporte
+acestream://e2395d28ad19423212fd3aa0e81f387db3e8bb9f
+#EXTINF:-1 group-title="TDT" tvg-id="Real Madrid TV", Real Madrid TV
+acestream://0827cf7d290967985892965c6e61244a479d6dcd
 #EXTINF:-1 group-title="TDT" tvg-id="24 Horas", 24 Horas
 acestream://2191383ed85d20f5f6759785e14a4aff8a3ab8f4
 #EXTINF:-1 group-title="TDT" tvg-id="Be Mad", BeMad
