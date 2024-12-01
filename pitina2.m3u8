@@ -32,9 +32,9 @@ acestream://8c8c1e047a1c5ed213ba74722a5345dc55c3c0eb
 acestream://97ba38d47680954be40e48bd8f43e17222fefecb
 #EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 720
 acestream://51dbbfb42f8091e4ea7a2186b566a40e780953d9
-#EXTINF:-1 group-title="LaLiga" tvg-id="Premier.Sports.1.HD.uk", Premier Sports 1
+#EXTINF:-1 group-title="LaLiga" tvg-id="UK | Premier Sports 1", Premier Sports 1
 acestream://75a56863b6fe0407ad4305b4d7ee5643c3923565
-#EXTINF:-1 group-title="LaLiga" tvg-id="Premier.Sports.2.HD.uk", Premier Sports 2
+#EXTINF:-1 group-title="LaLiga" tvg-id="UK | Premier Sports 2", Premier Sports 2
 acestream://4903ca695edb64bc72ae29eb85a5333ba0139537
 
 #EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 1080
