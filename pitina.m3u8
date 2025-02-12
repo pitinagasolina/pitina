@@ -1,218 +1,212 @@
-#EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv_color1.xml.gz"
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga 1080P
-plugin://script.module.horus?action=play&id=aa82e7d4f03061f2144a2f4be22f2e2210d42280
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV HD", M+ LaLiga 1080 MultiAudio
-plugin://script.module.horus?action=play&id=7d8c87e057be98f00f22e23b23fbf08999e4b02f
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV HD", M+ LaLiga 1080 MultiAudio
-plugin://script.module.horus?action=play&id=1969c27658d4c8333ab2c0670802546121a774a5
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV HD", M+ LaLiga 720
-plugin://script.module.horus?action=play&id=f031f5728b32f6089dda28edebe990cf198108d8
+#EXTM3U url-tvg="https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiaiptv.xml"
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080
+acestream://d3de78aebe544611a2347f54d5796bd87f16c92d
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 1080
+acestream://6d05b31e5e8fdae312fbd57897363a7b10ddb163
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV HD", M+ LaLiga TV 720
+acestream://1bc437bce57b4b0450f6d1f8d818b7e97000745e
 #EXTINF:-1 group-title="LaLiga" tvg-id="LaLiga TV BAR HD", LaLiga TV BAR 1080
-plugin://script.module.horus?action=play&id=608b0faf7d3d25f6fe5dba13d5e4b4142949990e
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV 2 HD", M+ LaLiga 2 1080
-plugin://script.module.horus?action=play&id=26029f72a4ca831d09deefe89534818db1d105bc
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV 2 HD", M+ LaLiga 2 720
-plugin://script.module.horus?action=play&id=80126b240f3e4e004754fd8f8103e857ab2556a0
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV 3 HD", M+ LaLiga 3 1080
-plugin://script.module.horus?action=play&id=ffbfbe31665c5b7f2f687872ba28f5f8717aedfc
-#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LALIGA TV 4", M+ LaLiga 4 1080
-plugin://script.module.horus?action=play&id=eee6144058d6106c243cbde774b05bff4a704a86
+acestream://608b0faf7d3d25f6fe5dba13d5e4b4142949990e
+#EXTINF:-1 group-title="LaLiga" tvg-id="LaLiga TV BAR HD", LaLiga TV BAR 1080
+acestream://94d34491106e00394835c8cb68aa94481339b53f
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 2 HD", M+ LaLiga TV 2 1080
+acestream://83c6c4942d69f4aa324aa746c5d7dbfd7d1572b3
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 2 HD", M+ LaLiga TV 2 720
+acestream://f31a586422c9244196c810c84b6c85da350318a5
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 3 HD", M+ LaLiga TV 3 1080
+acestream://ebe14f1edeb49f2253e3b355a8beeadc9b4f0bc4
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 3 HD", M+ LaLiga TV 3 720
+acestream://835639b89db00cc0d94660da3c10b6e38bfbcdc1
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ LaLiga TV 4", M+ LaLiga TV 4 1080
+acestream://eee6144058d6106c243cbde774b05bff4a704a86
 
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080 MultiAudio
-plugin://script.module.horus?action=play&id=110d441ddc9713a7452588770d2bc85504672f47
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080 MultiAudio
-plugin://script.module.horus?action=play&id=ec29289b0b14756e686c03a501bae1efa05be70c
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080
+acestream://110d441ddc9713a7452588770d2bc85504672f47
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080
+acestream://ec29289b0b14756e686c03a501bae1efa05be70c
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 1080
+acestream://6de4794cd02f88f14354b5996823413a59a1de0f
 #EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA HD", DAZN LaLiga 720
-plugin://script.module.horus?action=play&id=8c8c1e047a1c5ed213ba74722a5345dc55c3c0eb
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 1080 MultiAudio
-plugin://script.module.horus?action=play&id=97ba38d47680954be40e48bd8f43e17222fefecb
-#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 720 MultiAudio
-plugin://script.module.horus?action=play&id=51dbbfb42f8091e4ea7a2186b566a40e780953d9
+acestream://8c8c1e047a1c5ed213ba74722a5345dc55c3c0eb
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 1080
+acestream://97ba38d47680954be40e48bd8f43e17222fefecb
+#EXTINF:-1 group-title="LaLiga" tvg-id="DAZN LALIGA 2 HD", DAZN LaLiga 2 720
+acestream://51dbbfb42f8091e4ea7a2186b566a40e780953d9
+#EXTINF:-1 group-title="LaLiga" tvg-id="UK | Premier Sports 1", Premier Sports 1
+acestream://75a56863b6fe0407ad4305b4d7ee5643c3923565
+#EXTINF:-1 group-title="LaLiga" tvg-id="UK | Premier Sports 2", Premier Sports 2
+acestream://4903ca695edb64bc72ae29eb85a5333ba0139537
 
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080 MultiAudio
-plugin://script.module.horus?action=play&id=0a26e20f39845e928411e09a124374fccb6e1478
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080 MultiAudio
-plugin://script.module.horus?action=play&id=775abd8697715c48a357906d40734ccd2a10513c
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080P
-plugin://script.module.horus?action=play&id=1d79a7543d691666135669f89f3541f54e2dd0a9
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 720
-plugin://script.module.horus?action=play&id=8edb264520569b2280c5e86b2dc734e120032903
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 2 HD", ML Campeones 2 1080
-plugin://script.module.horus?action=play&id=c070cdb701fc46bb79d17568d99fc64620443d63
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 2 HD", ML Campeones 2 720
-plugin://script.module.horus?action=play&id=abdf9058786a48623d0de51a3adb414ae10b6e72
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 3 HD", ML Campeones 3 1080
-plugin://script.module.horus?action=play&id=3618edda333dad5374ac2c801f5f14483934b97d
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 3 HD", ML Campeones 3 720
-plugin://script.module.horus?action=play&id=0b348cc1ae499e810729661878764a0fab88ab69
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 4", ML Campeones 4 1080
-plugin://script.module.horus?action=play&id=65a18a6bd83918a9586b673fec12405aaf4e9f7d
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 5", ML Campeones 5 1080
-plugin://script.module.horus?action=play&id=11744c25a594e17d587ed0871fe40ff21b4bd1e0
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 6", ML Campeones 6 1080
-plugin://script.module.horus?action=play&id=fdda1f0dd8c33fbdc5a66ab98e291f570cae67cd
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 7", ML Campeones 7 1080
-plugin://script.module.horus?action=play&id=b7f47db93dced60f54e8f89e2366ed061b534049
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 8", ML Campeones 8 1080
-plugin://script.module.horus?action=play&id=d298c6e5c8be71f5995b45289c6388b225318b3c
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 9", ML Campeones 9
-plugin://script.module.horus?action=play&id=2d7c4cfb3987b652a779afc894cca2fccbbacf21
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 10", ML Campeones 10
-plugin://script.module.horus?action=play&id=c056f9e180cd7d40963129a17ff54f4ee8259353
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 11", ML Campeones 11
-plugin://script.module.horus?action=play&id=a12a16f74cf12799d4475ae867dc61eb60e1ba2e
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 12", ML Campeones 12
-plugin://script.module.horus?action=play&id=df7d145fcaf0566db4098d2f10236185d92bc9fd
-#EXTINF:-1 group-title="M+ Champions" tvg-id="M+ Liga de Campeones 13", ML Campeones 13
-plugin://script.module.horus?action=play&id=bdfe9ebe62d690c1b13eef4346d72e618cfbe804
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 1080
+acestream://f6beccbc4eea4bc0cda43b3e8ac14790a98b61b4
+#EXTINF:-1 group-title="LaLiga" tvg-id="M+ Copa del Rey", Copa 720
+acestream://b51f2d9a15b6956a44385b6be531bcabeb099d9d
 
-#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 1080
-plugin://script.module.horus?action=play&id=7cf0086fa7d478f51dbba952865c79e66cb9add5
-#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 720
-plugin://script.module.horus?action=play&id=35c7f0c966ecde3390f4510bb4caded40018c07a
-#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 2", DAZN 2 1080
-plugin://script.module.horus?action=play&id=ca923c9873fd206a41c1e83ff8fc40e3cf323c9a
-#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 2", DAZN 2 720
-plugin://script.module.horus?action=play&id=d03c13b6723f66155d7a0df3692a3b073fe630f2
-#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 3", DAZN 3 1080
-plugin://script.module.horus?action=play&id=19cd05c7ae26f22737ae5728b571ca36abd8a2e8
-#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 4", DAZN 4 1080
-plugin://script.module.horus?action=play&id=4e83f23945ab3e43982045f88ec31daaa4683102
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080
+acestream://0a26e20f39845e928411e09a124374fccb6e1478
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080
+acestream://775abd8697715c48a357906d40734ccd2a10513c
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 1080
+acestream://1d79a7543d691666135669f89f3541f54e2dd0a9
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones HD", ML Campeones 720
+acestream://8edb264520569b2280c5e86b2dc734e120032903
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 2 HD", ML Campeones 2 1080
+acestream://c070cdb701fc46bb79d17568d99fc64620443d63
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 2 HD", ML Campeones 2 720
+acestream://abdf9058786a48623d0de51a3adb414ae10b6e72
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 3 HD", ML Campeones 3 1080
+acestream://3618edda333dad5374ac2c801f5f14483934b97d
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 3 HD", ML Campeones 3 720
+acestream://0b348cc1ae499e810729661878764a0fab88ab69
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 4", ML Campeones 4 1080
+acestream://65a18a6bd83918a9586b673fec12405aaf4e9f7d
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 5", ML Campeones 5 1080
+acestream://11744c25a594e17d587ed0871fe40ff21b4bd1e0
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 6", ML Campeones 6 1080
+acestream://fdda1f0dd8c33fbdc5a66ab98e291f570cae67cd
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 7", ML Campeones 7 1080
+acestream://b7f47db93dced60f54e8f89e2366ed061b534049
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 8", ML Campeones 8 1080
+acestream://d298c6e5c8be71f5995b45289c6388b225318b3c
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 9", ML Campeones 9
+acestream://2d7c4cfb3987b652a779afc894cca2fccbbacf21
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 10", ML Campeones 10
+acestream://c056f9e180cd7d40963129a17ff54f4ee8259353
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 11", ML Campeones 11
+acestream://a12a16f74cf12799d4475ae867dc61eb60e1ba2e
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 12", ML Campeones 12
+acestream://df7d145fcaf0566db4098d2f10236185d92bc9fd
+#EXTINF:-1 group-title="Champions" tvg-id="M+ Liga de Campeones 13", ML Campeones 13
+acestream://bdfe9ebe62d690c1b13eef4346d72e618cfbe804
 
-#EXTINF:-1 group-title="LaLiga" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 1
-plugin://script.module.horus?action=play&id=c1ee6e1e0ef5928d8261f855c417de21794f437d
-#EXTINF:-1 group-title="LaLiga" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 2
-plugin://script.module.horus?action=play&id=8677d339ecddd75165c0015025f598b6215974cf
-
-#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
-plugin://script.module.horus?action=play&id=5789ca155323664edd293b848606688edf803f4d
-#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
-plugin://script.module.horus?action=play&id=9dad717d99b29a05672166258a77c25b57713dd5
-#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 720
-plugin://script.module.horus?action=play&id=e1fcad9de0c782c157fde6377805c58297ab65c2
-
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="Movistar Plus+ HD", M Plus+ 1080
-plugin://script.module.horus?action=play&id=56ac8e227d526e722624675ccdd91b0cc850582f
-
+#EXTINF:-1 group-title="M+ Deportes" tvg-id="Movistar Plus+ HD", Movistar Plus+ 1080
+acestream://56ac8e227d526e722624675ccdd91b0cc850582f
 
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Vamos HD", #Vamos 1080
-plugin://script.module.horus?action=play&id=d03c13b6723f66155d7a0df3692a3b073fe630f2
+acestream://d03c13b6723f66155d7a0df3692a3b073fe630f2
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Vamos HD", #Vamos 720
-plugin://script.module.horus?action=play&id=12ba546d229bc39f01c3c18988a034b215fe6adb
+acestream://12ba546d229bc39f01c3c18988a034b215fe6adb
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Ellas Vamos HD" , #Ellas 1080
-plugin://script.module.horus?action=play&id=67654e63b5065cdaa6c8e8d41bb5428b42b32830
+acestream://d8c2ed470e847154a88f011137cc206319f6bed5
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes", M+ Deportes 1080
-plugin://script.module.horus?action=play&id=55d4602cb22b0d8a33c10c2c2f42dae64a9e8895
+acestream://55d4602cb22b0d8a33c10c2c2f42dae64a9e8895
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes", M+ Deportes 720
-plugin://script.module.horus?action=play&id=3a74d9869b13e763476800740c6625e715a39879
+acestream://3a74d9869b13e763476800740c6625e715a39879
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 2", M+ Deportes 2 1080
-plugin://script.module.horus?action=play&id=639c561dd57fa3fc91fde715caeb696c5efb7ce7
+acestream://639c561dd57fa3fc91fde715caeb696c5efb7ce7
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 3", M+ Deportes 3 1080
-plugin://script.module.horus?action=play&id=571bff4d12b1791eb99dbf20bec38e630693a6a3
+acestream://571bff4d12b1791eb99dbf20bec38e630693a6a3
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 4", M+ Deportes 4 1080
-plugin://script.module.horus?action=play&id=b4d1308a61e4caf8c06ac3d6ce89d165c015c2fb
+acestream://b4d1308a61e4caf8c06ac3d6ce89d165c015c2fb
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 5", M+ Deportes 5 1080
-plugin://script.module.horus?action=play&id=fcc0fd75bf1dba40b108fcf0d3514e0e549bfbac
+acestream://fcc0fd75bf1dba40b108fcf0d3514e0e549bfbac
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 6", M+ Deportes 6 1080
-plugin://script.module.horus?action=play&id=cc5782d37ae6b6e0bab396dd64074982d0879046
+acestream://cc5782d37ae6b6e0bab396dd64074982d0879046
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Deportes 7", M+ Deportes 7 1080
-plugin://script.module.horus?action=play&id=070f82d6443a52962d6a2ed9954c979b29404932
+acestream://070f82d6443a52962d6a2ed9954c979b29404932
 
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Golf", M+ Golf 1080
-plugin://script.module.horus?action=play&id=858b3cf2842ebe394999275e5ebb0435f1af2ae4
+acestream://f41f1096862767289620be5bd85727f946a434db
 #EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Golf 2", M+ Golf 2 1080
-plugin://script.module.horus?action=play&id=9a4f3ae6563668b7709dac509dedc709441b3fd9
+acestream://e258e75e0e802afa5fcc53d46b47d8801a254ad5
 
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga Hypermotion 1080
-plugin://script.module.horus?action=play&id=4c46585214b23b1d802ef2168060c7649a3894cf
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga Hypermotion 720
-plugin://script.module.horus?action=play&id=06b367c22394a1358c9cefa0cb5d0b64b9b2b3f4
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga Hypermotion 2 1080
-plugin://script.module.horus?action=play&id=d81b4f2f3fde433539c097b2edc9b587ca47b087
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga Hypermotion 2 720
-plugin://script.module.horus?action=play&id=2709d0ab86cb6ce7ba4d3ad188d7fa80668f2924
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 3", LaLiga Hypermotion 3
-plugin://script.module.horus?action=play&id=424c89c7c0f251051269b578f40d13d192cf2c2d
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 4" tvg-logo="https://www.movistarplus.es/recorte/m-NEO/canal/MLIGS4.png", LaLiga Hypermotion 4
-plugin://script.module.horus?action=play&id=2cacf21476b036e319bcb7c7e747766e6ccc082e
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 5" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga Hypermotion 5
-plugin://script.module.horus?action=play&id=a1146358aa50c99c887108b17f62f9264186a16a
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 6" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga Hypermotion 6
-plugin://script.module.horus?action=play&id=7a9bb1b9cccb759c44ed84f3c1283922e6854670
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 7" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga Hypermotion 7
-plugin://script.module.horus?action=play&id=446e73a22582921393b020ed08b768ad8e14d754
-#EXTINF:-1 group-title="M+ LaLiga Hypermotion" tvg-id="LALIGA TV HYPERMOTION 8" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LaLiga_TV_Hypermotion_2023_Logo.svg/1920px-LaLiga_TV_Hypermotion_2023_Logo.svg.png", LaLiga Hypermotion 8
-plugin://script.module.horus?action=play&id=4d52fc1994fe927702aeb7bc8778e2f23b1260e2
+#EXTINF:-1 group-title="NBA" tvg-id="NBA.TV.HDTV.(NBA.HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nba-tv-us.png", NBA TV
+acestream://e72d03fb9694164317260f684470be9ab781ed95
+#EXTINF:-1 group-title="NBA" tvg-id="ESPN.HDTV.(Dish).(ESPNHD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-us.png", ESPN
+acestream://4b4907de51ec11087d4bed5876f2a0c68264f442
+#EXTINF:-1 group-title="NBA" tvg-id="ESPN2.HDTV.(Dish).(ESPN2HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-2-us.png", ESPN 2
+acestream://664eb5fe460b96941aed633959a845b185cd8394
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 1", TNT Sports 1
+acestream://efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 2", TNT Sports 2
+acestream://d63d8a57cf471394bfa9f619bbd68b01ae27a801
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 3", TNT Sports 3
+acestream://5f966c123759de46dff29c379266b7a403452033
+#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 4", TNT Sports 4
+acestream://fc5089d8e1519872fdf951779ccbca913acc9bce
 
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 1080
-plugin://script.module.horus?action=play&id=307b6e84ca9620b3f7a13af143c9e4019752756a
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 1080
-plugin://script.module.horus?action=play&id=b545ed0de344cfb830721fb961fddb208d39d19a
-#EXTINF:-1 group-title="M+ Deportes" tvg-id="M+ Copa del Rey", Copa 720
-plugin://script.module.horus?action=play&id=dab7cab5d6d177df36c3b333ca363c2266d91a03
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
+acestream://d6281d4e6310269b416180442a470d23a4a99dc9
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
+acestream://2c6e4c897661e6b0257bfe931b66d20b2ec763b6
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 1080
+acestream://71eef80158aa8b37f3dc59f6793c6696df9a2dfa
+#EXTINF:-1 group-title="DAZN F1" tvg-id="DAZN F1", DAZN F1 720
+acestream://268289e7a3c5209960b53b4d43c8c65fab294b85
 
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Main Event", Sky Sport Main Event UK
-plugin://script.module.horus?action=play&id=eab7aeef0218ce8b0752e596e4792b69eda4df5e
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Premier League", Sky Sport Premier League UK
-plugin://script.module.horus?action=play&id=ec5eabe0144ccfffc337e1d6708e2afb81d0638e
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Football", Sky Sport Football UK
-plugin://script.module.horus?action=play&id=8dbe2d515e9131fa311353537736f8c94be9b26d
-#EXTINF:-1 group-title="British" tvg-id="UK | Sky Sport Arena", Sky Sport Arena UK
-plugin://script.module.horus?action=play&id=d317a003e8047da2c36a2a2bb2289578c9a3b79c
-#EXTINF:-1 group-title="British" tvg-id="DE | Sky Sport F1", Sky Sport F1 DE
-plugin://script.module.horus?action=play&id=b04372b9543d763bd2dbd2a1842d9723fd080076
+#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 1080
+acestream://7cf0086fa7d478f51dbba952865c79e66cb9add5
+#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 1", DAZN 1 720
+acestream://35c7f0c966ecde3390f4510bb4caded40018c07a
+#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 2", DAZN 2 1080
+acestream://ca923c9873fd206a41c1e83ff8fc40e3cf323c9a
+#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 2", DAZN 2 720
+acestream://d03c13b6723f66155d7a0df3692a3b073fe630f2
+#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 3", DAZN 3 1080
+acestream://19cd05c7ae26f22737ae5728b571ca36abd8a2e8
+#EXTINF:-1 group-title="DAZN" tvg-id="DAZN 4", DAZN 4 1080
+acestream://4e83f23945ab3e43982045f88ec31daaa4683102
 
-#EXTINF:-1 group-title="NBA" tvg-id="NBATV.us" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/1200px-NBA_TV.svg.png", NBA TV
-plugin://script.module.horus?action=play&id=e72d03fb9694164317260f684470be9ab781ed95
-#EXTINF:-1 group-title="NBA" tvg-id="ESPN", ESPN
-plugin://script.module.horus?action=play&id=4b4907de51ec11087d4bed5876f2a0c68264f442
-#EXTINF:-1 group-title="NBA" tvg-id="ESPN2", ESPN 2
-plugin://script.module.horus?action=play&id=664eb5fe460b96941aed633959a845b185cd8394
-#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 1", TNT Sports 1 UK
-plugin://script.module.horus?action=play&id=efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b
-#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 2", TNT Sports 2 UK
-plugin://script.module.horus?action=play&id=d63d8a57cf471394bfa9f619bbd68b01ae27a801
-#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 3", TNT Sports 3 UK
-plugin://script.module.horus?action=play&id=5f966c123759de46dff29c379266b7a403452033
-#EXTINF:-1 group-title="NBA" tvg-id="UK | TNT Sports 4", TNT Sports 4 UK
-plugin://script.module.horus?action=play&id=fc5089d8e1519872fdf951779ccbca913acc9bce
-#EXTINF:-1 group-title="NBA" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/2015_Fox_Sports_1_logo.svg/2560px-2015_Fox_Sports_1_logo.svg.png", FOX Sports 1 US
-plugin://script.module.horus?action=play&id=c9c062941fbecb16ce29437f346ea7177d720898
-#EXTINF:-1 group-title="NBA" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/FS2_logo_2015.svg/2560px-FS2_logo_2015.svg.png", FOX Sports 2 US
-plugin://script.module.horus?action=play&id=cba8d369eac629b577750edb90370cd1c5fb03b7
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 1
+acestream://c1ee6e1e0ef5928d8261f855c417de21794f437d
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="FEF TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/4b/FEF_TV_Logo.png", FEF TV 2
+acestream://8677d339ecddd75165c0015025f598b6215974cf
 
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Eurosport 1", Eurosport 1 1080
-plugin://script.module.horus?action=play&id=16ffa1713f42aa27317ee039a2bd0cdbc89a1580
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Eurosport 2", Eurosport 2 1080
-plugin://script.module.horus?action=play&id=c373da9e901d414b7384e671112e64d5a2310c29
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga TV Hypermotion 1080
+acestream://b2706a7ffbea236a3b398139a3a606ada664c0eb
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION HD", LaLiga TV Hypermotion 720
+acestream://121f719ebb94193c6086ef92865cf9b197750980
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga TV Hypermotion 2 1080
+acestream://0cfdfde1b70623b8c210b0f7301be2a87456481d
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 2", LaLiga TV Hypermotion 2 720
+acestream://0a335406bad0b658aeddb2d38f8c0614b2e5623a
+#EXTINF:-1 group-title="Segunda y 1ºRFEF" tvg-id="LALIGA TV HYPERMOTION 3", LaLiga TV Hypermotion 3
+acestream://20196007a6697a1f11589fd4c8bab6713c265e64
 
-#EXTINF:-1 group-title="Otros deportes" tvg-id="GOL PLAY", GOL Play 1080
-plugin://script.module.horus?action=play&id=d4627f7b6b237a8556819445b3283d866caceca2
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Teledeporte", tdp 1080
-plugin://script.module.horus?action=play&id=e2395d28ad19423212fd3aa0e81f387db3e8bb9f
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Main Event", Sky Sport Main Event UK
+acestream://eab7aeef0218ce8b0752e596e4792b69eda4df5e
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Premier League", Sky Sport Premier League UK
+acestream://ec5eabe0144ccfffc337e1d6708e2afb81d0638e
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Football", Sky Sport Football UK
+acestream://8dbe2d515e9131fa311353537736f8c94be9b26d
+#EXTINF:-1 group-title="Otros" tvg-id="UK | Sky Sport Arena", Sky Sport Arena UK
+acestream://d317a003e8047da2c36a2a2bb2289578c9a3b79c
+#EXTINF:-1 group-title="Otros" tvg-id="DE | Sky Sport F1", Sky Sport F1 DE
+acestream://b04372b9543d763bd2dbd2a1842d9723fd080076
+#EXTINF:-1 group-title="Otros" tvg-id="Fox.Sports.1.HDTV.(FS1HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-1-us.png", FOX Sports 1
+acestream://c9c062941fbecb16ce29437f346ea7177d720898
+#EXTINF:-1 group-title="Otros" tvg-id="Fox.Sports.2.HDTV.(FS2HD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-2-us.png", FOX Sports 2
+acestream://cba8d369eac629b577750edb90370cd1c5fb03b7
+#EXTINF:-1 group-title="Otros" tvg-id="Eurosport 1", Eurosport 1
+acestream://16ffa1713f42aa27317ee039a2bd0cdbc89a1580
+#EXTINF:-1 group-title="Otros" tvg-id="Eurosport 2", Eurosport 2
+acestream://c373da9e901d414b7384e671112e64d5a2310c29
+#EXTINF:-1 group-title="Otros" tvg-id="Tennis Channel", Tennis Channel
+acestream://9292d3b32432efb56db4014933cbdec0a7cf2e36
+#EXTINF:-1 group-title="Otros" tvg-id="PT | Sport TV 1", Sport TV 1
+acestream://ce235921dac95e1da2dd5e54673c2fecb9e806de
+#EXTINF:-1 group-title="Otros" tvg-id="PT | Sport TV 2", Sport TV 2
+acestream://396d82ca6f5445abcd32e6b609d67e332ee12ace
+#EXTINF:-1 group-title="Otros" tvg-id="PT | Sport TV 3", Sport TV 3
+acestream://f8cb9d9e3077eb3ae417b2d95a69c5f590760eb9
+#EXTINF:-1 group-title="Otros" tvg-id="beIN.Sports.HDTV.(Spanish).(beINHD).us" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bein-sports-espanol-us.png", beIN SPORTS ñ
+acestream://41af6926a6010b68ba2540975761436bb077748f
 
-#EXTINF:-1 group-title="Otros deportes" tvg-id="Tennis Channel", Tennis Channel
-plugin://script.module.horus?action=play&id=9292d3b32432efb56db4014933cbdec0a7cf2e36
-#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 1", Sport TV 1 POR
-plugin://script.module.horus?action=play&id=ce235921dac95e1da2dd5e54673c2fecb9e806de
-#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 2", Sport TV 2 POR
-plugin://script.module.horus?action=play&id=396d82ca6f5445abcd32e6b609d67e332ee12ace
-#EXTINF:-1 group-title="Otros deportes" tvg-id="PT | Sport TV 3", Sport TV 3 POR
-plugin://script.module.horus?action=play&id=f8cb9d9e3077eb3ae417b2d95a69c5f590760eb9
-#EXTINF:-1 group-title="Otros deportes" tvg-id="beIN SPORTS ñ", beIN SPORTS ñ
-plugin://script.module.horus?action=play&id=41af6926a6010b68ba2540975761436bb077748f
-
-#EXTINF:-1 group-title="Otros" tvg-id="La 1 HD" m-NEONEGR/canal/TVE", La1
-plugin://script.module.horus?action=play&id=b897de3e62d7c6bee9ef1107d972f3d1075e03ff
-#EXTINF:-1 group-title="Otros" tvg-id="La 2" m-NEONEGR/canal/LA2", La2
-plugin://script.module.horus?action=play&id=52d3738871536dce27db50f044d3294a4c52253d
-#EXTINF:-1 group-title="Otros" tvg-id="24 horas" m-NEONEGR/canal/24 horas", 24h
-plugin://script.module.horus?action=play&id=2191383ed85d20f5f6759785e14a4aff8a3ab8f4
-#EXTINF:-1 group-title="Otros" tvg-id="Cuatro" m-NEONEGR/canal/C4", Cuatro 1080
-plugin://script.module.horus?action=play&id=e8eec35f4662be1af96963245bfa88fb7d0242c4
-#EXTINF:-1 group-title="Otros" tvg-id="Be Mad" m-NEONEGR/canal/BEMAD", BeMad 1080
-plugin://script.module.horus?action=play&id=5c267a00f264736c1d47c1cc3e754447ca8f770c
-#EXTINF:-1 group-title="Otros" tvg-id="Telecinco" m-NEONEGR/canal/T5", Telecinco 1080
-plugin://script.module.horus?action=play&id=bb1982ae8d2d409d4ccd7a9f498042684e3532b5
-#EXTINF:-1 group-title="Otros" tvg-id="Real Madrid TV" m-NEONEGR/canal/Real Madrid TV", Real Madrid TV
-plugin://script.module.horus?action=play&id=0827cf7d290967985892965c6e61244a479d6dcd
+#EXTINF:-1 group-title="TDT" tvg-id="La 1 HD", La1
+acestream://b897de3e62d7c6bee9ef1107d972f3d1075e03ff
+#EXTINF:-1 group-title="TDT" tvg-id="La 2", La2
+acestream://52d3738871536dce27db50f044d3294a4c52253d
+#EXTINF:-1 group-title="TDT" tvg-id="Cuatro", Cuatro
+acestream://e8eec35f4662be1af96963245bfa88fb7d0242c4
+#EXTINF:-1 group-title="TDT" tvg-id="Telecinco", Telecinco
+acestream://66a7e4727bccce8ccc04e54861b06b62d89452fa
+#EXTINF:-1 group-title="TDT" tvg-id="GOL PLAY", GOL Play
+acestream://d4627f7b6b237a8556819445b3283d866caceca2
+#EXTINF:-1 group-title="TDT" tvg-id="Teledeporte", Teledeporte
+acestream://61b9b271c16f970aab43cb753c5f8be181dceece
+#EXTINF:-1 group-title="TDT" tvg-id="Real Madrid TV", Real Madrid TV
+acestream://0827cf7d290967985892965c6e61244a479d6dcd
+#EXTINF:-1 group-title="TDT" tvg-id="24 Horas", 24 Horas
+acestream://2191383ed85d20f5f6759785e14a4aff8a3ab8f4
+#EXTINF:-1 group-title="TDT" tvg-id="Be Mad", BeMad
+acestream://5c267a00f264736c1d47c1cc3e754447ca8f770c
