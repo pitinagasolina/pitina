@@ -1,4 +1,4 @@
-name: Actualizar lista IPTV
+name: Actualizar
 
 on:
   schedule:
@@ -61,7 +61,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add lista.m3u
+          git add pitina.m3u
 
           if git diff --cached --quiet; then
             echo "No hay cambios. No se crea ningún commit."
