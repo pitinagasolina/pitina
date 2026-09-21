@@ -1,24 +1,64 @@
-name: Probar IPNS
+name: Probar listas con navegador
 
 on:
   workflow_dispatch:
 
 jobs:
-  resolver:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Instalar IPFS
+      - name: Instalar Playwright
         run: |
-          wget -q https://dist.ipfs.tech/kubo/v0.38.2/kubo_v0.38.2_linux-amd64.tar.gz
-          tar -xzf kubo_v0.38.2_linux-amd64.tar.gz
-          sudo bash kubo/install.sh
+          python -m pip install playwright
+          playwright install --with-deps chromium
 
-      - name: Inicializar IPFS
+      - name: Descargar lista 1 con navegador
         run: |
-          ipfs init --profile=server
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
 
-      - name: Resolver segunda lista
+          url = "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u"
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page()
+
+              response = page.goto(url, wait_until="networkidle", timeout=120000)
+
+              print("STATUS:", response.status if response else "SIN RESPUESTA")
+              print("URL FINAL:", page.url)
+
+              content = page.content()
+              print("TAMAÑO HTML:", len(content))
+
+              print("TEXTO:")
+              print(page.locator("body").inner_text()[:2000])
+
+              browser.close()
+          PY
+
+      - name: Descargar lista 2 con navegador
         run: |
-          ipfs name resolve \
-            k51qzi5uqu5di462t7j4vu4akwfhvtjhy88qbupktvoacqfqe9uforjvhyi4wr
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+
+          url = "https://tokyo.elcano-ipfs.workers.dev/k51qzi5uqu5di462t7j4vu4akwfhvtjhy88qbupktvoacqfqe9uforjvhyi4wr/hashes.m3u"
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page()
+
+              response = page.goto(url, wait_until="networkidle", timeout=120000)
+
+              print("STATUS:", response.status if response else "SIN RESPUESTA")
+              print("URL FINAL:", page.url)
+
+              content = page.content()
+              print("TAMAÑO HTML:", len(content))
+
+              print("TEXTO:")
+              print(page.locator("body").inner_text()[:2000])
+
+              browser.close()
+          PY
