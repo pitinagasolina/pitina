@@ -1,3 +1,4 @@
+```yaml
 name: Actualizar lista IPTV
 
 on:
@@ -19,13 +20,13 @@ jobs:
       - name: Descargar lista 1
         run: |
           curl -fL --retry 3 --retry-delay 5 \
-            "https://tokyo.elcano-ipfs.workers.dev/hashes.m3u" \
+            "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u" \
             -o lista1.m3u
 
       - name: Descargar lista 2
         run: |
           curl -fL --retry 3 --retry-delay 5 \
-            "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u" \
+            "https://tokyo.elcano-ipfs.workers.dev/k51qzi5uqu5di462t7j4vu4akwfhvtjhy88qbupktvoacqfqe9uforjvhyi4wr/hashes.m3u" \
             -o lista2.m3u
 
       - name: Comprobar listas
@@ -64,9 +65,5 @@ jobs:
 
           git add lista.m3u
 
-          if git diff --cached --quiet; then
-            echo "La lista no ha cambiado."
-          else
-            git commit -m "Actualizar lista IPTV"
-            git push
-          fi
+          if git diff --cached -
+```
