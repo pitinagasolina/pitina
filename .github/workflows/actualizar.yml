@@ -1,69 +1,43 @@
-name: Probar listas
+name: Resolver IPNS
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  resolver:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Probar lista 1
+      - name: Probar IPNS
         run: |
           python - <<'PY'
           import requests
 
-          url = "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u"
+          ipns = "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb"
 
-          headers = {
-              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
-              "Accept": "*/*",
-              "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
-          }
+          urls = [
+              f"https://ipfs.io/ipns/{ipns}/data/listas/lista_iptv.m3u",
+              f"https://dweb.link/ipns/{ipns}/data/listas/lista_iptv.m3u",
+              f"https://cloudflare-ipfs.com/ipns/{ipns}/data/listas/lista_iptv.m3u",
+          ]
 
-          r = requests.get(
-              url,
-              headers=headers,
-              timeout=60,
-              allow_redirects=True
-          )
+          for url in urls:
+              print("\n==============================")
+              print(url)
+              print("==============================")
 
-          print("STATUS:", r.status_code)
-          print("URL FINAL:", r.url)
-          print("HEADERS:")
-          for k, v in r.headers.items():
-              print(f"{k}: {v}")
+              try:
+                  r = requests.get(
+                      url,
+                      timeout=60,
+                      allow_redirects=True
+                  )
 
-          print("\nRESPUESTA:")
-          print(r.text[:5000])
-          PY
-
-      - name: Probar lista 2
-        run: |
-          python - <<'PY'
-          import requests
-
-          url = "https://tokyo.elcano-ipfs.workers.dev/k51qzi5uqu5di462t7j4vu4akwfhvtjhy88qbupktvoacqfqe9uforjvhyi4wr/hashes.m3u"
-
-          headers = {
-              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
-              "Accept": "*/*",
-              "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
-          }
-
-          r = requests.get(
-              url,
-              headers=headers,
-              timeout=60,
-              allow_redirects=True
-          )
-
-          print("STATUS:", r.status_code)
-          print("URL FINAL:", r.url)
-          print("HEADERS:")
-          for k, v in r.headers.items():
-              print(f"{k}: {v}")
-
-          print("\nRESPUESTA:")
-          print(r.text[:5000])
+                  print("STATUS:", r.status_code)
+                  print("URL FINAL:", r.url)
+                  print("TAMAÑO:", len(r.content))
+                  print("CONTENIDO:")
+                  print(r.text[:500])
+              except Exception as e:
+                  print("ERROR:", e)
           PY
