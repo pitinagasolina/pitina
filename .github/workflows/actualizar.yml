@@ -8,36 +8,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Probar IPNS
+      - name: Instalar IPFS
         run: |
-          python - <<'PY'
-          import requests
+          wget -q https://dist.ipfs.tech/kubo/v0.38.2/kubo_v0.38.2_linux-amd64.tar.gz
+          tar -xzf kubo_v0.38.2_linux-amd64.tar.gz
+          sudo bash kubo/install.sh
 
-          ipns = "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb"
+      - name: Inicializar IPFS
+        run: |
+          ipfs init --profile=server
 
-          urls = [
-              f"https://ipfs.io/ipns/{ipns}/data/listas/lista_iptv.m3u",
-              f"https://dweb.link/ipns/{ipns}/data/listas/lista_iptv.m3u",
-              f"https://cloudflare-ipfs.com/ipns/{ipns}/data/listas/lista_iptv.m3u",
-          ]
-
-          for url in urls:
-              print("\n==============================")
-              print(url)
-              print("==============================")
-
-              try:
-                  r = requests.get(
-                      url,
-                      timeout=60,
-                      allow_redirects=True
-                  )
-
-                  print("STATUS:", r.status_code)
-                  print("URL FINAL:", r.url)
-                  print("TAMAÑO:", len(r.content))
-                  print("CONTENIDO:")
-                  print(r.text[:500])
-              except Exception as e:
-                  print("ERROR:", e)
-          PY
+      - name: Resolver IPNS
+        run: |
+          ipfs name resolve \
+            k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb \
+            --offline=false
