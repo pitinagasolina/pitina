@@ -1,64 +1,71 @@
-name: Probar listas con navegador
+name: Actualizar lista IPTV
 
 on:
+  schedule:
+    - cron: "0 */12 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  test:
+  actualizar:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Instalar Playwright
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Descargar lista 1
         run: |
-          python -m pip install playwright
-          playwright install --with-deps chromium
+          curl -fL --retry 3 --retry-delay 5 \
+            "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u" \
+            -o lista1.m3u
 
-      - name: Descargar lista 1 con navegador
+      - name: Descargar lista 2
         run: |
-          python - <<'PY'
-          from playwright.sync_api import sync_playwright
+          curl -fL --retry 3 --retry-delay 5 \
+            "https://tokyo.elcano-ipfs.workers.dev/k51qzi5uqu5di462t7j4vu4akwfhvtjhy88qbupktvoacqfqe9uforjvhyi4wr/hashes.m3u" \
+            -o lista2.m3u
 
-          url = "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u"
-
-          with sync_playwright() as p:
-              browser = p.chromium.launch()
-              page = browser.new_page()
-
-              response = page.goto(url, wait_until="networkidle", timeout=120000)
-
-              print("STATUS:", response.status if response else "SIN RESPUESTA")
-              print("URL FINAL:", page.url)
-
-              content = page.content()
-              print("TAMAÑO HTML:", len(content))
-
-              print("TEXTO:")
-              print(page.locator("body").inner_text()[:2000])
-
-              browser.close()
-          PY
-
-      - name: Descargar lista 2 con navegador
+      - name: Comprobar descargas
         run: |
-          python - <<'PY'
-          from playwright.sync_api import sync_playwright
+          test -s lista1.m3u
+          test -s lista2.m3u
 
-          url = "https://tokyo.elcano-ipfs.workers.dev/k51qzi5uqu5di462t7j4vu4akwfhvtjhy88qbupktvoacqfqe9uforjvhyi4wr/hashes.m3u"
+          grep -q "#EXTM3U" lista1.m3u
+          grep -q "#EXTM3U" lista2.m3u
 
-          with sync_playwright() as p:
-              browser = p.chromium.launch()
-              page = browser.new_page()
+          echo "Lista 1: $(wc -c < lista1.m3u) bytes"
+          echo "Lista 2: $(wc -c < lista2.m3u) bytes"
 
-              response = page.goto(url, wait_until="networkidle", timeout=120000)
+      - name: Combinar listas
+        run: |
+          {
+            head -n 1 lista1.m3u
+            tail -n +2 lista1.m3u
+            tail -n +2 lista2.m3u
+          } > lista.m3u
 
-              print("STATUS:", response.status if response else "SIN RESPUESTA")
-              print("URL FINAL:", page.url)
+      - name: Comprobar lista final
+        run: |
+          test -s lista.m3u
+          grep -q "^#EXTM3U" lista.m3u
 
-              content = page.content()
-              print("TAMAÑO HTML:", len(content))
+          echo "Lista final:"
+          echo "Tamaño: $(wc -c < lista.m3u) bytes"
+          echo "Canales: $(grep -c '^#EXTINF:' lista.m3u || true)"
 
-              print("TEXTO:")
-              print(page.locator("body").inner_text()[:2000])
+      - name: Publicar en GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-              browser.close()
-          PY
+          git add lista.m3u
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios. No se crea ningún commit."
+          else
+            git commit -m "Actualizar lista IPTV"
+            git push
+          fi
