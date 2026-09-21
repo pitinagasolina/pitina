@@ -18,7 +18,7 @@ jobs:
           python - <<'PY'
           from playwright.sync_api import sync_playwright
 
-          url = "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6peo9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u"
+          url = "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u"
 
           with sync_playwright() as p:
               browser = p.chromium.launch()
