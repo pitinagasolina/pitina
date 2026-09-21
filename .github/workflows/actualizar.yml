@@ -60,6 +60,60 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+      - name: Generar lista para OpenTV
+        run: |
+          python - <<'PY'
+          import re
+
+          entrada = "lista.m3u"
+          salida = "lista-opentv.m3u"
+
+          with open(entrada, "r", encoding="utf-8", errors="replace") as f:
+              lineas = f.readlines()
+
+          # tvg-id utilizado y número de apariciones
+          usados = {}
+          resultado = []
+
+          patron = re.compile(r'tvg-id="([^"]*)"')
+
+          for linea in lineas:
+              if linea.startswith("#EXTINF:"):
+                  match = patron.search(linea)
+
+                  if match:
+                      tvg_id = match.group(1)
+
+                      if tvg_id:
+                          cantidad = usados.get(tvg_id, 0) + 1
+                          usados[tvg_id] = cantidad
+
+                          if cantidad > 1:
+                              nuevo_id = f"{tvg_id}-{cantidad}"
+
+                              linea = (
+                                  linea[:match.start(1)]
+                                  + nuevo_id
+                                  + linea[match.end(1):]
+                              )
+
+              resultado.append(linea)
+
+          with open(salida, "w", encoding="utf-8", newline="") as f:
+              f.writelines(resultado)
+
+          total = sum(usados.values())
+          duplicados = sum(1 for n in usados.values() if n > 1)
+
+          print("==========================================")
+          print("LISTA PARA OPENTV GENERADA")
+          print("==========================================")
+          print(f"Entradas procesadas: {total}")
+          print(f"tvg-id duplicados:   {duplicados}")
+          print("Archivo: lista-opentv.m3u")
+          print("==========================================")
+          PY
 
           git add pitina.m3u
 
