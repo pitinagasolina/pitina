@@ -45,16 +45,16 @@ jobs:
             head -n 1 lista1.m3u
             tail -n +2 lista1.m3u
             tail -n +2 lista2.m3u
-          } > lista.m3u
+          } > pitina.m3u
 
       - name: Comprobar lista final
         run: |
-          test -s lista.m3u
-          grep -q "^#EXTM3U" lista.m3u
+          test -s pitina.m3u
+          grep -q "^#EXTM3U" pitina.m3u
 
           echo "Lista final:"
-          echo "Tamaño: $(wc -c < lista.m3u) bytes"
-          echo "Canales: $(grep -c '^#EXTINF:' lista.m3u || true)"
+          echo "Tamaño: $(wc -c < pitina.m3u) bytes"
+          echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
 
       - name: Publicar en GitHub
         run: |
@@ -66,6 +66,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No hay cambios. No se crea ningún commit."
           else
-            git commit -m "Actualizar lista IPTV"
+            git commit -m "Actualizar"
             git push
           fi
