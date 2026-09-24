@@ -17,15 +17,19 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Descargar lista 1
+        env:
+          M3U_URL: ${{ secrets.M3U_URL_1 }}
         run: |
           curl -fL --retry 3 --retry-delay 5 \
-            "https://tokyo.elcano-ipfs.workers.dev/k51qzi5uqu5di462t7j4vu4akwfhvtjhy88qbupktvoacqfqe9uforjvhyi4wr/hashes.m3u" \
+            "$M3U_URL" \
             -o lista1.m3u
 
       - name: Descargar lista 2
+        env:
+          M3U_URL: ${{ secrets.M3U_URL_2 }}
         run: |
           curl -fL --retry 3 --retry-delay 5 \
-            "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u" \
+            "$M3U_URL" \
             -o lista2.m3u
 
       - name: Comprobar descargas
