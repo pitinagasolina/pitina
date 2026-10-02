@@ -16,9 +16,9 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v5
     
-      - name: Resolver IPNS de la lista 1
+      - name: Resolver IPNS de lista 1
         env:
-          IPNS_NAME: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
+          IPNS_NAME_1: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
         run: |
           set -e
     
@@ -26,20 +26,21 @@ jobs:
             --retry 3 \
             --retry-delay 5 \
             --max-time 60 \
-            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME" \
-            -o ipns-record.bin
+            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME_1" \
+            -o ipns-record-1.bin
     
-          CID=$(strings ipns-record.bin \
-            | grep -oE 'Qm[1-9A-HJ-NP-Za-km-z]{44}' \
-            | head -n 1)
+          CID_1=$(strings ipns-record-1.bin \
+            | grep -oE '/ipfs/[A-Za-z0-9]+' \
+            | head -n 1 \
+            | sed 's#^/ipfs/##')
     
-          if [ -z "$CID" ]; then
-            echo "ERROR: No se pudo obtener el CID del IPNS."
+          if [ -z "$CID_1" ]; then
+            echo "ERROR: No se pudo obtener el CID de la lista 1."
             exit 1
           fi
     
-          echo "CID encontrado: $CID"
-          echo "IPFS_CID=$CID" >> "$GITHUB_ENV"
+          echo "CID lista 1: $CID_1"
+          echo "IPFS_CID_1=$CID_1" >> "$GITHUB_ENV"
     
       - name: Descargar lista 1
         run: |
@@ -49,56 +50,49 @@ jobs:
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/$IPFS_CID/data/listas/lista_iptv.m3u" \
+            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/data/listas/lista_iptv.m3u" \
             -o lista1.m3u
+    
+          test -s lista1.m3u
     
       - name: Resolver IPNS de lista 2
         env:
-          IPNS_NAME: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
+          IPNS_NAME_2: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
         run: |
           set -e
-
+    
           curl -fsSL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 60 \
-            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME" \
+            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME_2" \
             -o ipns-record-2.bin
-
-          echo "Registro IPNS recibido:"
-          ls -lh ipns-record-2.bin
-
-          echo "Contenido legible del registro:"
-          strings ipns-record-2.bin | grep -E "/ipfs/|bafy|Qm" || true
-
-          CID=$(strings ipns-record-2.bin \
+    
+          CID_2=$(strings ipns-record-2.bin \
             | grep -oE '/ipfs/[A-Za-z0-9]+' \
             | head -n 1 \
             | sed 's#^/ipfs/##')
-
-          if [ -z "$CID" ]; then
+    
+          if [ -z "$CID_2" ]; then
             echo "ERROR: No se pudo obtener el CID de la lista 2."
             exit 1
           fi
-
-          echo "CID lista 2: $CID"
-          echo "IPFS_CID_2=$CID" >> "$GITHUB_ENV"
-
-      - name: Probar descarga lista 2
+    
+          echo "CID lista 2: $CID_2"
+          echo "IPFS_CID_2=$CID_2" >> "$GITHUB_ENV"
+    
+      - name: Descargar lista 2
         run: |
           set -e
-
+    
           curl -fL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
             "https://gateway.pinata.cloud/ipfs/$IPFS_CID_2/hashes.m3u" \
-            -o lista2-test.m3u
-
-          test -s lista2-test.m3u
-
-          echo "Lista 2 descargada correctamente"
-          echo "Tamaño: $(wc -c < lista2-test.m3u) bytes"
+            -o lista2.m3u
+    
+          test -s lista2.m3u
     
       - name: Comprobar descargas
         run: |
