@@ -15,64 +15,102 @@ jobs:
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v5
-
-      - name: Resolver IPNS
+    
+      - name: Resolver IPNS de la lista 1
+        env:
+          IPNS_NAME: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
         run: |
-          curl -v --max-time 60 \
-            "https://delegated-ipfs.dev/routing/v1/ipns/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
-
+          set -e
+    
+          curl -fsSL \
+            --retry 3 \
+            --retry-delay 5 \
+            --max-time 60 \
+            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME" \
+            -o ipns-record.bin
+    
+          CID=$(strings ipns-record.bin \
+            | grep -oE 'Qm[1-9A-HJ-NP-Za-km-z]{44}' \
+            | head -n 1)
+    
+          if [ -z "$CID" ]; then
+            echo "ERROR: No se pudo obtener el CID del IPNS."
+            exit 1
+          fi
+    
+          echo "CID encontrado: $CID"
+          echo "IPFS_CID=$CID" >> "$GITHUB_ENV"
+    
       - name: Descargar lista 1
         run: |
-          curl -fL --retry 3 --retry-delay 5 \
-            "https://ipfs.io/ipfs/QmUmiSRTAUWk3W9V8srcfz7PPiKY6AH68SoF99J5m11nz6/data/listas/lista_iptv.m3u" \
+          set -e
+    
+          curl -fL \
+            --retry 3 \
+            --retry-delay 5 \
+            --max-time 120 \
+            "https://ipfs.io/ipfs/$IPFS_CID/data/listas/lista_iptv.m3u" \
             -o lista1.m3u
-
+    
       - name: Descargar lista 2
         env:
-          M3U_URL: ${{ secrets.M3U_URL_2 }}
+          M3U_URL: "${{ secrets.M3U_URL_2 }}"
         run: |
-          curl -fL --retry 3 --retry-delay 5 \
+          set -e
+    
+          curl -fL \
+            --retry 3 \
+            --retry-delay 5 \
+            --max-time 120 \
             "$M3U_URL" \
             -o lista2.m3u
-
+    
       - name: Comprobar descargas
         run: |
+          set -e
+    
           test -s lista1.m3u
           test -s lista2.m3u
-
+    
           grep -q "#EXTM3U" lista1.m3u
           grep -q "#EXTM3U" lista2.m3u
-
+    
           echo "Lista 1: $(wc -c < lista1.m3u) bytes"
           echo "Lista 2: $(wc -c < lista2.m3u) bytes"
-
+    
       - name: Combinar listas
         run: |
+          set -e
+    
           {
             head -n 1 lista1.m3u
             tail -n +2 lista1.m3u
             tail -n +2 lista2.m3u
           } > pitina.m3u
-
+    
       - name: Comprobar lista final
         run: |
+          set -e
+    
           test -s pitina.m3u
           grep -q "^#EXTM3U" pitina.m3u
-
+    
           echo "Lista final:"
           echo "Tamaño: $(wc -c < pitina.m3u) bytes"
           echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
-
-      - name: Publicar en GitHub
+    
+      - name: Publicar cambios
         run: |
+          set -e
+    
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
+    
           git add pitina.m3u
-
+    
           if git diff --cached --quiet; then
             echo "No hay cambios. No se crea ningún commit."
           else
-            git commit -m "Actualizar"
+            git commit -m "Actualizar listas"
             git push
           fi
