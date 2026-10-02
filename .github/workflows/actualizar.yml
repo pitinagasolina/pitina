@@ -15,6 +15,35 @@ jobs:
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v5
+
+      - name: Analizar proxy Elcano
+        run: |
+          set -e
+
+          echo "=== LISTA 1 ==="
+          curl -fsSL \
+            --max-time 60 \
+            "https://tokyo.elcano-ipfs.workers.dev/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb/" \
+            -o elcano-lista1.html
+
+          echo "Tamaño respuesta lista 1:"
+          wc -c elcano-lista1.html
+
+          echo "Contenido lista 1:"
+          cat elcano-lista1.html
+
+          echo
+          echo "=== LISTA 2 ==="
+          curl -fsSL \
+            --max-time 60 \
+            "https://tokyo.elcano-ipfs.workers.dev/k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs/" \
+            -o elcano-lista2.html
+
+          echo "Tamaño respuesta lista 2:"
+          wc -c elcano-lista2.html
+
+          echo "Contenido lista 2:"
+          cat elcano-lista2.html
     
       - name: Resolver IPNS de lista 1
         env:
