@@ -21,48 +21,35 @@ jobs:
           IPNS_NAME: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
         run: |
           set -e
-
+    
           curl -fsSL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 60 \
             "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME" \
             -o ipns-record.bin
-
+    
           CID=$(strings ipns-record.bin \
             | grep -oE 'Qm[1-9A-HJ-NP-Za-km-z]{44}' \
             | head -n 1)
-
+    
           if [ -z "$CID" ]; then
             echo "ERROR: No se pudo obtener el CID del IPNS."
             exit 1
           fi
-
+    
           echo "CID encontrado: $CID"
           echo "IPFS_CID=$CID" >> "$GITHUB_ENV"
-
-      - name: Probar descarga IPFS
-        run: |
-          curl -fL \
-            --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/QmUmiSRTAUWk3W9V8srcfz7PPiKY6AH68SoF99J5m11nz6/data/listas/lista_iptv.m3u" \
-            -o lista1-test.m3u
-
-          test -s lista1-test.m3u
-          grep -q "#EXTM3U" lista1-test.m3u
-
-          echo "Lista descargada correctamente"
-          echo "Tamaño: $(wc -c < lista1-test.m3u) bytes"
-
+    
       - name: Descargar lista 1
         run: |
           set -e
-
+    
           curl -fL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "https://ipfs.io/ipfs/$IPFS_CID/data/listas/lista_iptv.m3u" \
+            "https://gateway.pinata.cloud/ipfs/$IPFS_CID/data/listas/lista_iptv.m3u" \
             -o lista1.m3u
     
       - name: Descargar lista 2
