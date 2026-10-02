@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Probar gateway IPFS
+      - name: Resolver IPNS
         run: |
-          curl -vL --max-time 60 \
-            "https://ipfs.io/ipns/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb/data/listas/lista_iptv.m3u" \
-            -o /tmp/lista-test
+          curl -v --max-time 60 \
+            "https://delegated-ipfs.dev/routing/v1/ipns/k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
+
 
       - name: Descargar repositorio
         uses: actions/checkout@v5
