@@ -52,18 +52,53 @@ jobs:
             "https://gateway.pinata.cloud/ipfs/$IPFS_CID/data/listas/lista_iptv.m3u" \
             -o lista1.m3u
     
-      - name: Descargar lista 2
+      - name: Resolver IPNS de lista 2
         env:
-          M3U_URL: "${{ secrets.M3U_URL_2 }}"
+          IPNS_NAME: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
         run: |
           set -e
-    
+
+          curl -fsSL \
+            --retry 3 \
+            --retry-delay 5 \
+            --max-time 60 \
+            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME" \
+            -o ipns-record-2.bin
+
+          echo "Registro IPNS recibido:"
+          ls -lh ipns-record-2.bin
+
+          echo "Contenido legible del registro:"
+          strings ipns-record-2.bin | grep -E "/ipfs/|bafy|Qm" || true
+
+          CID=$(strings ipns-record-2.bin \
+            | grep -oE '/ipfs/[A-Za-z0-9]+' \
+            | head -n 1 \
+            | sed 's#^/ipfs/##')
+
+          if [ -z "$CID" ]; then
+            echo "ERROR: No se pudo obtener el CID de la lista 2."
+            exit 1
+          fi
+
+          echo "CID lista 2: $CID"
+          echo "IPFS_CID_2=$CID" >> "$GITHUB_ENV"
+
+      - name: Probar descarga lista 2
+        run: |
+          set -e
+
           curl -fL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "$M3U_URL" \
-            -o lista2.m3u
+            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_2/hashes.m3u" \
+            -o lista2-test.m3u
+
+          test -s lista2-test.m3u
+
+          echo "Lista 2 descargada correctamente"
+          echo "Tamaño: $(wc -c < lista2-test.m3u) bytes"
     
       - name: Comprobar descargas
         run: |
