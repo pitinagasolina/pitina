@@ -18,7 +18,7 @@ jobs:
     
       - name: Resolver IPNS de lista 1
         env:
-          IPNS_NAME_1: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
+          IPNS_NAME_1: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
         run: |
           set -e
     
@@ -57,7 +57,7 @@ jobs:
     
       - name: Resolver IPNS de lista 2
         env:
-          IPNS_NAME_2: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
+          IPNS_NAME_2: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
         run: |
           set -e
     
