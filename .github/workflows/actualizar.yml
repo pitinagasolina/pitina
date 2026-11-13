@@ -311,7 +311,7 @@ jobs:
       # ==========================================
       # VALIDAR RESULTADO FINAL
       # ==========================================
-
+      
       - name: Comprobar lista final
         run: |
           set -e
@@ -326,17 +326,52 @@ jobs:
           echo "Tamaño: $(wc -c < pitina.m3u) bytes"
           echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
 
-          if grep -q 'acestream://' pitina.m3u; then
-            echo "ERROR: Quedan enlaces acestream://"
-            exit 1
-          fi
+          python3 - <<'PY'
+          import re
 
-          if grep -v '^#' pitina.m3u | grep -v '^http://127.0.0.1:6878/ace/getstream?id='; then
-            echo "ERROR: Se ha encontrado un enlace fuera del formato local."
-            exit 1
-          fi
+          filename = "pitina.m3u"
+          prefix = "http://127.0.0.1:6878/ace/getstream?id="
 
-          echo "Todos los enlaces tienen el formato local correcto."
+          errors = []
+          links = 0
+          local_links = 0
+
+          with open(filename, encoding="utf-8-sig") as f:
+              for number, line in enumerate(f, 1):
+                  line = line.strip()
+
+                  if not line or line.startswith("#"):
+                      continue
+
+                  links += 1
+
+                  if line.lower().startswith("acestream://"):
+                      errors.append(
+                          f"Línea {number}: queda acestream://"
+                      )
+                  elif line.startswith(prefix):
+                      local_links += 1
+                  else:
+                      errors.append(
+                          f"Línea {number}: enlace no normalizado: {line}"
+                      )
+
+          print(f"Enlaces totales: {links}")
+          print(f"Enlaces locales: {local_links}")
+
+          if errors:
+              print("")
+              print("ERRORES DETECTADOS:")
+
+              for error in errors[:30]:
+                  print(error)
+
+              raise SystemExit(
+                  f"ERROR: Se han encontrado {len(errors)} enlaces incorrectos."
+              )
+
+          print("Todos los enlaces tienen el formato local correcto.")
+          PY
 
           echo "================================"
 
