@@ -114,10 +114,10 @@ jobs:
           done
 
       # ==========================================
-      # UNIFICAR Y ORDENAR POR PROCEDENCIA
+      # UNIFICAR, NORMALIZAR Y ORDENAR
       # ==========================================
 
-      - name: Unificar listas y ordenar canales
+      - name: Unificar listas y normalizar canales
         run: |
           set -e
 
@@ -133,7 +133,23 @@ jobs:
               ("BASE2", "lista3.m3u"),
           ]
 
+          # ======================================
+          # EQUIVALENCIAS DE GRUPOS
+          # ======================================
+
+          GROUP_ALIASES = {
+              "RFEF TV": "1RFEF",
+              "1RFEF": "1RFEF",
+
+              "LA_LIGA": "LA LIGA",
+              "LA LIGA": "LA LIGA",
+
+              "LIGA_DE_CAMPEONES": "LIGA DE CAMPEONES",
+              "LIGA DE CAMPEONES": "LIGA DE CAMPEONES",
+          }
+
           seen = set()
+
           stats = {
               "IPFS": 0,
               "BASE": 0,
@@ -142,12 +158,16 @@ jobs:
 
           duplicates = 0
           converted = 0
+          normalized_groups = 0
+
+          # ======================================
+          # LEER LISTAS M3U
+          # ======================================
 
           def parse_playlist(filename):
               with open(filename, "r", encoding="utf-8-sig") as f:
                   lines = f.read().splitlines()
 
-              preamble = []
               entries = []
               current = None
 
@@ -161,13 +181,14 @@ jobs:
                   elif current is not None:
                       current.append(line)
 
-                  elif line.strip() and not line.startswith("#EXTM3U"):
-                      preamble.append(line)
-
               if current is not None:
                   entries.append(current)
 
-              return preamble, entries
+              return entries
+
+          # ======================================
+          # EXTRAER ID ACESTREAM
+          # ======================================
 
           def extract_id(url):
               url = url.strip()
@@ -188,6 +209,10 @@ jobs:
 
               return None
 
+          # ======================================
+          # DETECTAR SPORT TV
+          # ======================================
+
           def is_sport_tv(entry):
               text = "\n".join(entry).upper()
 
@@ -196,13 +221,58 @@ jobs:
                   or "SPORT_TV" in text
               )
 
+          # ======================================
+          # NORMALIZAR GRUPOS
+          # ======================================
+
+          def normalize_group(entry):
+              global normalized_groups
+
+              for i, line in enumerate(entry):
+                  if not line.startswith("#EXTINF:"):
+                      continue
+
+                  match = re.search(
+                      r'group-title="([^"]*)"',
+                      line,
+                      re.IGNORECASE
+                  )
+
+                  if not match:
+                      break
+
+                  original_group = match.group(1).strip()
+                  normalized_group = GROUP_ALIASES.get(
+                      original_group.upper(),
+                      original_group
+                  )
+
+                  if original_group != normalized_group:
+                      normalized_groups += 1
+
+                      entry[i] = re.sub(
+                          r'group-title="[^"]*"',
+                          lambda m: f'group-title="{normalized_group}"',
+                          line,
+                          count=1,
+                          flags=re.IGNORECASE
+                      )
+
+                  break
+
+              return entry
+
+          # ======================================
+          # PROCESAR CANALES
+          # ======================================
+
           def process_entries(entries, source):
               global duplicates, converted
 
               result = []
 
-              for entry in entries:
-                  entry = list(entry)
+              for original_entry in entries:
+                  entry = list(original_entry)
 
                   stream_index = None
                   ace_id = None
@@ -223,38 +293,45 @@ jobs:
 
                       normalized_id = ace_id.lower()
 
-                      # La primera lista que contiene el ID gana.
+                      # La primera lista tiene prioridad.
                       if normalized_id in seen:
                           duplicates += 1
                           continue
 
                       seen.add(normalized_id)
 
-                      original = entry[stream_index]
+                      original_url = entry[stream_index]
 
-                      if not original.startswith(LOCAL_PREFIX):
+                      if not original_url.startswith(LOCAL_PREFIX):
                           converted += 1
 
                       entry[stream_index] = LOCAL_PREFIX + ace_id
+
+                  # Normalizar grupo antes de guardar.
+                  entry = normalize_group(entry)
 
                   result.append(entry)
                   stats[source] += 1
 
               return result
 
-          # Leer las tres listas.
-          preamble, entries1 = parse_playlist(FILES[0][1])
-          _, entries2 = parse_playlist(FILES[1][1])
-          _, entries3 = parse_playlist(FILES[2][1])
+          # ======================================
+          # PROCESAR LAS TRES LISTAS
+          # ======================================
 
-          # Crear bloques independientes por procedencia.
-          # El orden de prioridad es inalterable.
+          entries1 = parse_playlist("lista1.m3u")
+          entries2 = parse_playlist("lista2.m3u")
+          entries3 = parse_playlist("lista3.m3u")
 
+          # PRIORIDAD 1: IPFS
           ipfs_entries = process_entries(entries1, "IPFS")
 
+          # PRIORIDAD 2: BASE
           base_entries = process_entries(entries2, "BASE")
 
-          # SPORT TV primero dentro de BASE2.
+          # PRIORIDAD 3: BASE2
+          # SPORT TV primero, manteniendo el orden original.
+
           sport_entries = [
               e for e in entries3 if is_sport_tv(e)
           ]
@@ -263,10 +340,18 @@ jobs:
               e for e in entries3 if not is_sport_tv(e)
           ]
 
-          base2_sport = process_entries(sport_entries, "BASE2")
-          base2_other = process_entries(other_entries, "BASE2")
+          base2_sport = process_entries(
+              sport_entries, "BASE2"
+          )
 
-          # ORDEN FINAL EXPLÍCITO.
+          base2_other = process_entries(
+              other_entries, "BASE2"
+          )
+
+          # ======================================
+          # ORDEN FINAL ESTRICTO
+          # ======================================
+
           final_entries = (
               ipfs_entries
               + base_entries
@@ -274,9 +359,11 @@ jobs:
               + base2_other
           )
 
-          # Escribir resultado.
-          with open("pitina.m3u", "w", encoding="utf-8") as out:
+          # ======================================
+          # ESCRIBIR LISTA FINAL
+          # ======================================
 
+          with open("pitina.m3u", "w", encoding="utf-8") as out:
               out.write("#EXTM3U\n")
 
               for entry in final_entries:
@@ -284,34 +371,38 @@ jobs:
                       out.write(line + "\n")
 
           # ======================================
-          # VERIFICACIÓN DEL ORDEN
+          # ESTADÍSTICAS
           # ======================================
 
           print("")
           print("========== RESULTADOS ==========")
+
           print(f"Canales IPFS: {stats['IPFS']}")
           print(f"Canales BASE: {stats['BASE']}")
           print(f"Canales BASE2: {stats['BASE2']}")
+
           print(f"Canales finales: {len(final_entries)}")
           print(f"Duplicados eliminados: {duplicates}")
           print(f"Enlaces convertidos: {converted}")
-          print(f"SPORT TV encontrados en BASE2: {len(sport_entries)}")
+
+          print(f"Grupos normalizados: {normalized_groups}")
+          print(f"SPORT TV detectados en BASE2: {len(sport_entries)}")
 
           print("")
-          print("Orden de procedencia:")
+          print("ORDEN FINAL:")
           print("1. IPFS")
           print("2. BASE")
-          print("3. BASE2 SPORT TV")
-          print("4. BASE2 restantes")
+          print("3. BASE2 - SPORT TV")
+          print("4. BASE2 - RESTO")
 
           print("================================")
 
           PY
 
       # ==========================================
-      # VALIDAR RESULTADO FINAL
+      # COMPROBAR LISTA FINAL
       # ==========================================
-      
+
       - name: Comprobar lista final
         run: |
           set -e
@@ -327,8 +418,6 @@ jobs:
           echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
 
           python3 - <<'PY'
-          import re
-
           filename = "pitina.m3u"
           prefix = "http://127.0.0.1:6878/ace/getstream?id="
 
@@ -384,7 +473,7 @@ jobs:
           set -e
 
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+users.noreply.github.com"
 
           git add pitina.m3u
 
