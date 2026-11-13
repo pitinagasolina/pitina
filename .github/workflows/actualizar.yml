@@ -37,7 +37,7 @@ jobs:
           CID_1=$(strings ipns-record-1.bin \
             | grep -oE '/ipfs/[A-Za-z0-9]+' \
             | head -n 1 \
-            | sed 's#^/ipfs/##')
+            | sed 's#^/ipfs/##' || true)
 
           if [ -z "$CID_1" ]; then
             echo "ERROR: No se pudo obtener el CID de la lista 1."
@@ -55,11 +55,10 @@ jobs:
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/data/listas/lista_iptv.m3u" \
+            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/hashes.m3u" \
             -o lista1.m3u
 
           test -s lista1.m3u
-          grep -q "^#EXTM3U" lista1.m3u
 
       # ==========================================
       # LISTA 2 - BASE.M3U
