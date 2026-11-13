@@ -18,7 +18,7 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v5
 
-      # 2. Resolver IPNS de la nueva lista 1
+      # 2. Resolver IPNS de lista 1
       - name: Resolver IPNS de lista 1
         env:
           IPNS_NAME_1: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
@@ -87,7 +87,7 @@ jobs:
 
           test -s lista3.m3u
 
-      # 6. Comprobar las tres descargas
+      # 6. Comprobar descargas
       - name: Comprobar descargas
         run: |
           set -e
@@ -98,8 +98,8 @@ jobs:
             echo "$FILE: $(wc -c < "$FILE") bytes"
           done
 
-      # 7. Unificar las tres listas y eliminar duplicados
-      - name: Combinar listas y eliminar duplicados
+      # 7. Combinar listas, eliminar duplicados y normalizar enlaces
+      - name: Combinar listas
         run: |
           set -e
 
@@ -108,6 +108,7 @@ jobs:
           from pathlib import Path
           from datetime import datetime
           from zoneinfo import ZoneInfo
+          from urllib.parse import urlsplit, parse_qs, unquote
 
           SOURCES = [
               Path("lista1.m3u"),
@@ -117,8 +118,17 @@ jobs:
 
           OUTPUT = Path("pitina.m3u")
 
+          LOCAL_PREFIX = (
+              "http://127.0.0.1:6878/ace/getstream?id="
+          )
+
           ACE_PATTERN = re.compile(
-              r'acestream://([a-fA-F0-9]{40})',
+              r'acestream://([^\s"\'<>]+)',
+              re.IGNORECASE
+          )
+
+          GETSTREAM_PATTERN = re.compile(
+              r'getstream\?[^ \t"\'<>]*',
               re.IGNORECASE
           )
 
@@ -134,7 +144,7 @@ jobs:
 
               for line in lines:
                   if line.startswith("#EXTINF:"):
-                      if current is not None:
+                      if current:
                           entries.append(current)
 
                       current = [line]
@@ -145,12 +155,88 @@ jobs:
                   else:
                       current.append(line)
 
-              if current is not None:
+              if current:
                   entries.append(current)
 
               return header, entries
 
-          # La lista 1 proporciona la cabecera principal
+          def extract_ids(entry):
+              identifiers = set()
+
+              for line in entry:
+
+                  # Extraer IDs de acestream://
+                  for match in ACE_PATTERN.findall(line):
+                      identifiers.add(
+                          unquote(match).strip().lower()
+                      )
+
+                  # Extraer IDs de getstream?id=
+                  if "getstream" in line.lower():
+                      matches = GETSTREAM_PATTERN.findall(line)
+
+                      for match in matches:
+                          try:
+                              query = urlsplit(
+                                  "http://placeholder/" + match
+                              ).query
+
+                              params = parse_qs(query)
+
+                              for value in params.get("id", []):
+                                  value = unquote(value).strip()
+
+                                  if value:
+                                      identifiers.add(
+                                          value.lower()
+                                      )
+
+                          except Exception:
+                              pass
+
+              return identifiers
+
+          def normalize_entry(entry):
+              normalized = []
+
+              for line in entry:
+
+                  # Convertir acestream:// a AceServe
+                  line = ACE_PATTERN.sub(
+                      lambda m: LOCAL_PREFIX + m.group(1),
+                      line
+                  )
+
+                  # Convertir enlaces getstream?id= al formato local
+                  if "getstream" in line.lower():
+
+                      def replace_getstream(match):
+                          try:
+                              parsed = urlsplit(
+                                  "http://placeholder/" + match.group(0)
+                              )
+
+                              params = parse_qs(parsed.query)
+                              ids = params.get("id", [])
+
+                              if not ids:
+                                  return match.group(0)
+
+                              return LOCAL_PREFIX + ids[0]
+
+                          except Exception:
+                              return match.group(0)
+
+                      line = GETSTREAM_PATTERN.sub(
+                          replace_getstream,
+                          line
+                      )
+
+                  normalized.append(line)
+
+              return normalized
+
+          # La lista 1 es siempre la base
           header, base_entries = parse_playlist(SOURCES[0])
 
           if not base_entries:
@@ -158,7 +244,6 @@ jobs:
                   "ERROR: La lista 1 no contiene canales."
               )
 
-          # Registrar los identificadores de la lista principal
           seen_ids = set()
           final_entries = []
 
@@ -174,41 +259,34 @@ jobs:
               "lista3": 0
           }
 
+          # Procesar en orden de prioridad
           for index, source in enumerate(SOURCES):
+
               name = f"lista{index + 1}"
 
-              _, entries = (
-                  (header, base_entries)
-                  if index == 0
-                  else parse_playlist(source)
-              )
+              if index == 0:
+                  entries = base_entries
+              else:
+                  _, entries = parse_playlist(source)
 
               for entry in entries:
-                  identifiers = []
 
-                  for line in entry:
-                      match = ACE_PATTERN.search(line)
+                  identifiers = extract_ids(entry)
 
-                      if match:
-                          identifiers.append(
-                              match.group(1).lower()
-                          )
+                  # Descartar si cualquiera de sus IDs ya existe
+                  if identifiers.intersection(seen_ids):
+                      duplicates[name] += 1
+                      continue
 
-                  # Evitar duplicados por identificador AceStream
-                  if identifiers:
-                      if any(
-                          identifier in seen_ids
-                          for identifier in identifiers
-                      ):
-                          duplicates[name] += 1
-                          continue
+                  seen_ids.update(identifiers)
 
-                      seen_ids.update(identifiers)
+                  # Normalizar todos los enlaces
+                  entry = normalize_entry(entry)
 
                   final_entries.append(entry)
                   stats[name] += 1
 
-          # Actualizar fecha y contador en la cabecera
+          # Actualizar fecha y total
           now = datetime.now(
               ZoneInfo("Europe/Madrid")
           ).strftime("%d/%m/%Y %H:%M:%S")
@@ -216,32 +294,39 @@ jobs:
           total = len(final_entries)
 
           updated_header = []
-          has_date = False
-          has_total = False
 
           for line in header:
+
               if line.startswith("# ACTUALIZADO:"):
                   updated_header.append(
                       f"# ACTUALIZADO: {now}"
                   )
-                  has_date = True
 
               elif line.startswith("# TOTAL CANALES:"):
                   updated_header.append(
                       f"# TOTAL CANALES: {total}"
                   )
-                  has_total = True
 
               else:
                   updated_header.append(line)
 
-          if not has_date:
-              updated_header.append(f"# ACTUALIZADO: {now}")
+          if not any(
+              x.startswith("# ACTUALIZADO:")
+              for x in header
+          ):
+              updated_header.append(
+                  f"# ACTUALIZADO: {now}"
+              )
 
-          if not has_total:
-              updated_header.append(f"# TOTAL CANALES: {total}")
+          if not any(
+              x.startswith("# TOTAL CANALES:")
+              for x in header
+          ):
+              updated_header.append(
+                  f"# TOTAL CANALES: {total}"
+              )
 
-          # Generar la lista final
+          # Generar lista definitiva
           output_lines = list(updated_header)
 
           for entry in final_entries:
@@ -261,17 +346,17 @@ jobs:
                   f"{name}: {stats[name]} canales añadidos"
               )
               print(
-                  f"{name}: {duplicates[name]} duplicados descartados"
+                  f"{name}: {duplicates[name]} duplicados eliminados"
               )
 
           print("--------------------------------")
           print(f"TOTAL CANALES: {total}")
-          print(f"IDs AceStream únicos: {len(seen_ids)}")
+          print(f"IDENTIFICADORES ÚNICOS: {len(seen_ids)}")
           print("Lista final generada correctamente.")
           print("================================")
           PY
 
-      # 8. Comprobar lista final
+      # 8. Comprobar lista definitiva
       - name: Comprobar lista final
         run: |
           set -e
@@ -282,31 +367,73 @@ jobs:
           python3 <<'PY'
           import re
           from pathlib import Path
+          from urllib.parse import urlsplit, parse_qs, unquote
 
           content = Path("pitina.m3u").read_text(
               encoding="utf-8"
           )
 
-          ids = re.findall(
-              r'acestream://([a-fA-F0-9]{40})',
+          entries = re.findall(
+              r'^#EXTINF:.*?(?=^#EXTINF:|\Z)',
+              content,
+              re.MULTILINE | re.DOTALL
+          )
+
+          ids = []
+
+          for match in re.findall(
+              r'acestream://([^\s"\'<>]+)',
               content,
               re.IGNORECASE
-          )
-
-          normalized = [x.lower() for x in ids]
-
-          if len(normalized) != len(set(normalized)):
+          ):
               raise SystemExit(
-                  "ERROR: Se han encontrado IDs duplicados."
+                  "ERROR: Queda un enlace acestream:// sin convertir."
               )
 
+          for match in re.findall(
+              r'getstream\?[^ \t"\'<>]*',
+              content,
+              re.IGNORECASE
+          ):
+              parsed = urlsplit(
+                  "http://placeholder/" + match
+              )
+
+              values = parse_qs(parsed.query).get("id", [])
+
+              for value in values:
+                  ids.append(unquote(value).lower())
+
+          if len(ids) != len(set(ids)):
+              raise SystemExit(
+                  "ERROR: Se han encontrado IDs getstream repetidos."
+              )
+
+          if re.search(
+              r'getstream\?id=',
+              content,
+              re.IGNORECASE
+          ):
+              if not re.search(
+                  r'http://127\.0\.0\.1:6878/ace/getstream\?id=',
+                  content
+              ):
+                  raise SystemExit(
+                      "ERROR: Los enlaces locales no tienen el formato esperado."
+                  )
+
           channels = len(
-              re.findall(r'^#EXTINF:', content, re.MULTILINE)
+              re.findall(
+                  r'^#EXTINF:',
+                  content,
+                  re.MULTILINE
+              )
           )
 
+          print("COMPROBACIÓN CORRECTA")
           print(f"Canales finales: {channels}")
-          print(f"IDs AceStream: {len(normalized)}")
-          print("Comprobación correcta.")
+          print(f"IDs getstream: {len(ids)}")
+          print("No quedan enlaces acestream://")
           PY
 
           echo "Tamaño: $(wc -c < pitina.m3u) bytes"
