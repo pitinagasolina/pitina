@@ -21,45 +21,52 @@ jobs:
       # LISTA 1 - IPFS / IPNS (LISTA PRINCIPAL)
       # ==========================================
 
-      - name: Resolver IPNS de lista 1
+      - name: Descargar lista 1 desde IPNS
         env:
           IPNS_NAME_1: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
         run: |
           set -e
 
-          curl -fsSL \
-            --retry 3 \
-            --retry-delay 5 \
-            --max-time 60 \
-            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME_1" \
-            -o ipns-record-1.bin
+          URL_PATH="/data/listas/lista_iptv.m3u"
 
-          CID_1=$(strings ipns-record-1.bin \
-            | grep -oE '/ipfs/[A-Za-z0-9]+' \
-            | head -n 1 \
-            | sed 's#^/ipfs/##')
+          GATEWAYS=(
+            "https://gateway.pinata.cloud"
+            "https://ipfs.io"
+            "https://dweb.link"
+          )
 
-          if [ -z "$CID_1" ]; then
-            echo "ERROR: No se pudo obtener el CID de la lista 1."
+          DESCARGADA=false
+
+          for GATEWAY in "${GATEWAYS[@]}"; do
+
+            echo "Probando gateway: $GATEWAY"
+
+            if curl -fL \
+              --retry 2 \
+              --retry-delay 5 \
+              --max-time 180 \
+              "$GATEWAY/ipns/$IPNS_NAME_1$URL_PATH" \
+              -o lista1.tmp; then
+
+              if test -s lista1.tmp && grep -q "^#EXTM3U" lista1.tmp; then
+                mv lista1.tmp lista1.m3u
+                echo "Lista 1 descargada correctamente."
+                echo "Gateway utilizado: $GATEWAY"
+                DESCARGADA=true
+                break
+              fi
+            fi
+
+            rm -f lista1.tmp
+            echo "Gateway no válido. Probando el siguiente."
+          done
+
+          if [ "$DESCARGADA" != "true" ]; then
+            echo "ERROR: No se pudo descargar una lista M3U válida desde IPNS."
             exit 1
           fi
 
-          echo "CID lista 1: $CID_1"
-          echo "IPFS_CID_1=$CID_1" >> "$GITHUB_ENV"
-
-      - name: Descargar lista 1
-        run: |
-          set -e
-
-          curl -fL \
-            --retry 3 \
-            --retry-delay 5 \
-            --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/data/listas/lista_iptv.m3u" \
-            -o lista1.m3u
-
-          test -s lista1.m3u
-          grep -q "^#EXTM3U" lista1.m3u
+          echo "Canales lista 1: $(grep -c '^#EXTINF:' lista1.m3u)"
 
       # ==========================================
       # LISTA 2 - BASE.M3U
