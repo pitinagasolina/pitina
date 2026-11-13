@@ -14,14 +14,16 @@ jobs:
     runs-on: ubuntu-26.04
 
     steps:
-      # 1. Descargar repositorio
       - name: Descargar repositorio
         uses: actions/checkout@v5
 
-      # 2. Resolver IPNS de lista 1
+      # ==========================================
+      # LISTA 1 - IPFS / IPNS (LISTA PRINCIPAL)
+      # ==========================================
+
       - name: Resolver IPNS de lista 1
         env:
-          IPNS_NAME_1: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
+          IPNS_NAME_1: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
         run: |
           set -e
 
@@ -35,7 +37,7 @@ jobs:
           CID_1=$(strings ipns-record-1.bin \
             | grep -oE '/ipfs/[A-Za-z0-9]+' \
             | head -n 1 \
-            | sed 's#^/ipfs/##' || true)
+            | sed 's#^/ipfs/##')
 
           if [ -z "$CID_1" ]; then
             echo "ERROR: No se pudo obtener el CID de la lista 1."
@@ -45,7 +47,6 @@ jobs:
           echo "CID lista 1: $CID_1"
           echo "IPFS_CID_1=$CID_1" >> "$GITHUB_ENV"
 
-      # 3. Descargar lista 1 desde IPFS
       - name: Descargar lista 1
         run: |
           set -e
@@ -54,13 +55,17 @@ jobs:
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/hashes.m3u" \
+            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/data/listas/lista_iptv.m3u" \
             -o lista1.m3u
 
           test -s lista1.m3u
+          grep -q "^#EXTM3U" lista1.m3u
 
-      # 4. Descargar lista 2 desde GitHub
-      - name: Descargar lista 2
+      # ==========================================
+      # LISTA 2 - BASE.M3U
+      # ==========================================
+
+      - name: Descargar lista 2 (base.m3u)
         run: |
           set -e
 
@@ -72,9 +77,13 @@ jobs:
             -o lista2.m3u
 
           test -s lista2.m3u
+          grep -q "^#EXTM3U" lista2.m3u
 
-      # 5. Descargar lista 3 desde GitHub
-      - name: Descargar lista 3
+      # ==========================================
+      # LISTA 3 - BASE2.M3U
+      # ==========================================
+
+      - name: Descargar lista 3 (base2.m3u)
         run: |
           set -e
 
@@ -86,277 +95,179 @@ jobs:
             -o lista3.m3u
 
           test -s lista3.m3u
+          grep -q "^#EXTM3U" lista3.m3u
 
-      # 6. Comprobar descargas
+      # ==========================================
+      # COMPROBAR DESCARGAS
+      # ==========================================
+
       - name: Comprobar descargas
         run: |
           set -e
 
-          for FILE in lista1.m3u lista2.m3u lista3.m3u; do
-            test -s "$FILE"
-            grep -q "^#EXTM3U" "$FILE"
-            echo "$FILE: $(wc -c < "$FILE") bytes"
+          for file in lista1.m3u lista2.m3u lista3.m3u; do
+            test -s "$file"
+            grep -q "^#EXTM3U" "$file"
+            echo "$file: $(wc -c < "$file") bytes"
+            echo "Canales: $(grep -c '^#EXTINF:' "$file" || true)"
           done
 
-      # 7. Combinar listas, eliminar duplicados y normalizar enlaces
-      - name: Combinar listas
+      # ==========================================
+      # UNIFICAR Y ELIMINAR DUPLICADOS
+      # ==========================================
+
+      - name: Unificar listas y normalizar AceStream
         run: |
           set -e
 
-          python3 <<'PY'
+          python3 - <<'PY'
           import re
-          from pathlib import Path
-          from datetime import datetime
-          from zoneinfo import ZoneInfo
-          from urllib.parse import urlsplit, parse_qs, unquote
+          from urllib.parse import unquote
 
-          SOURCES = [
-              Path("lista1.m3u"),
-              Path("lista2.m3u"),
-              Path("lista3.m3u")
+          FILES = [
+              "lista1.m3u",
+              "lista2.m3u",
+              "lista3.m3u"
           ]
 
-          OUTPUT = Path("pitina.m3u")
+          OUTPUT = "pitina.m3u"
 
-          LOCAL_PREFIX = (
-              "http://127.0.0.1:6878/ace/getstream?id="
-          )
+          LOCAL_PREFIX = "http://127.0.0.1:6878/ace/getstream?id="
 
-          ACE_PATTERN = re.compile(
-              r'acestream://([^\s"\'<>]+)',
-              re.IGNORECASE
-          )
+          seen = set()
+          total = 0
+          duplicates = 0
+          converted = 0
 
-          GETSTREAM_PATTERN = re.compile(
-              r'getstream\?[^ \t"\'<>]*',
-              re.IGNORECASE
-          )
+          def parse_playlist(filename):
+              with open(filename, "r", encoding="utf-8-sig") as f:
+                  lines = f.read().splitlines()
 
-          def parse_playlist(path):
-              lines = path.read_text(
-                  encoding="utf-8-sig",
-                  errors="replace"
-              ).splitlines()
-
-              header = []
+              preamble = []
               entries = []
               current = None
 
               for line in lines:
                   if line.startswith("#EXTINF:"):
-                      if current:
+                      if current is not None:
                           entries.append(current)
 
                       current = [line]
 
-                  elif current is None:
-                      header.append(line)
-
-                  else:
+                  elif current is not None:
                       current.append(line)
 
-              if current:
+                  else:
+                      preamble.append(line)
+
+              if current is not None:
                   entries.append(current)
 
-              return header, entries
+              return preamble, entries
 
-          def extract_ids(entry):
-              identifiers = set()
+          def extract_id(url):
+              url = url.strip()
 
-              for line in entry:
+              if url.lower().startswith("acestream://"):
+                  ace_id = url[len("acestream://"):].split("?")[0].split("#")[0]
+                  return unquote(ace_id).strip()
 
-                  # Extraer IDs de acestream://
-                  for match in ACE_PATTERN.findall(line):
-                      identifiers.add(
-                          unquote(match).strip().lower()
-                      )
+              match = re.search(
+                  r'[?&]id=([^&\s]+)',
+                  url,
+                  re.IGNORECASE
+              )
 
-                  # Extraer IDs de getstream?id=
-                  if "getstream" in line.lower():
-                      matches = GETSTREAM_PATTERN.findall(line)
+              if match:
+                  return unquote(match.group(1)).strip()
 
-                      for match in matches:
-                          try:
-                              query = urlsplit(
-                                  "http://placeholder/" + match
-                              ).query
+              return None
 
-                              params = parse_qs(query)
+          # La cabecera siempre procede de la LISTA 1.
+          preamble, _ = parse_playlist(FILES[0])
 
-                              for value in params.get("id", []):
-                                  value = unquote(value).strip()
+          with open(OUTPUT, "w", encoding="utf-8") as out:
 
-                                  if value:
-                                      identifiers.add(
-                                          value.lower()
-                                      )
+              for line in preamble:
+                  if line.strip():
+                      out.write(line + "\n")
 
-                          except Exception:
-                              pass
+              # PRIORIDAD ESTRICTA:
+              # 1. lista1.m3u (IPNS)
+              # 2. lista2.m3u (base.m3u)
+              # 3. lista3.m3u (base2.m3u)
 
-              return identifiers
+              for filename in FILES:
 
-          def normalize_entry(entry):
-              normalized = []
+                  _, entries = parse_playlist(filename)
 
-              for line in entry:
+                  added = 0
+                  removed = 0
 
-                  # Convertir acestream:// a AceServe
-                  line = ACE_PATTERN.sub(
-                      lambda m: LOCAL_PREFIX + m.group(1),
-                      line
+                  for entry in entries:
+
+                      stream_index = None
+                      ace_id = None
+
+                      for i, line in enumerate(entry):
+                          stripped = line.strip()
+
+                          if not stripped or stripped.startswith("#"):
+                              continue
+
+                          stream_index = i
+                          ace_id = extract_id(stripped)
+                          break
+
+                      # Eliminar entradas sin URL identificable
+                      # no forma parte de esta deduplicación.
+                      if ace_id is not None:
+
+                          if not ace_id:
+                              continue
+
+                          normalized_id = ace_id.lower()
+
+                          # Si el ID ya existe, prevalece
+                          # siempre la primera lista procesada.
+                          if normalized_id in seen:
+                              duplicates += 1
+                              removed += 1
+                              continue
+
+                          seen.add(normalized_id)
+
+                          # Convertir todos los enlaces AceStream
+                          # al formato del servidor local.
+                          entry[stream_index] = LOCAL_PREFIX + ace_id
+                          converted += 1
+
+                      # Conservar el bloque M3U original.
+                      for line in entry:
+                          out.write(line + "\n")
+
+                      added += 1
+                      total += 1
+
+                  print(
+                      f"{filename}: "
+                      f"{added} canales añadidos, "
+                      f"{removed} duplicados eliminados"
                   )
-
-                  # Convertir enlaces getstream?id= al formato local
-                  if "getstream" in line.lower():
-
-                      def replace_getstream(match):
-                          try:
-                              parsed = urlsplit(
-                                  "http://placeholder/" + match.group(0)
-                              )
-
-                              params = parse_qs(parsed.query)
-                              ids = params.get("id", [])
-
-                              if not ids:
-                                  return match.group(0)
-
-                              return LOCAL_PREFIX + ids[0]
-
-                          except Exception:
-                              return match.group(0)
-
-                      line = GETSTREAM_PATTERN.sub(
-                          replace_getstream,
-                          line
-                      )
-
-                  normalized.append(line)
-
-              return normalized
-
-          # La lista 1 es siempre la base
-          header, base_entries = parse_playlist(SOURCES[0])
-
-          if not base_entries:
-              raise SystemExit(
-                  "ERROR: La lista 1 no contiene canales."
-              )
-
-          seen_ids = set()
-          final_entries = []
-
-          stats = {
-              "lista1": 0,
-              "lista2": 0,
-              "lista3": 0
-          }
-
-          duplicates = {
-              "lista1": 0,
-              "lista2": 0,
-              "lista3": 0
-          }
-
-          # Procesar en orden de prioridad
-          for index, source in enumerate(SOURCES):
-
-              name = f"lista{index + 1}"
-
-              if index == 0:
-                  entries = base_entries
-              else:
-                  _, entries = parse_playlist(source)
-
-              for entry in entries:
-
-                  identifiers = extract_ids(entry)
-
-                  # Descartar si cualquiera de sus IDs ya existe
-                  if identifiers.intersection(seen_ids):
-                      duplicates[name] += 1
-                      continue
-
-                  seen_ids.update(identifiers)
-
-                  # Normalizar todos los enlaces
-                  entry = normalize_entry(entry)
-
-                  final_entries.append(entry)
-                  stats[name] += 1
-
-          # Actualizar fecha y total
-          now = datetime.now(
-              ZoneInfo("Europe/Madrid")
-          ).strftime("%d/%m/%Y %H:%M:%S")
-
-          total = len(final_entries)
-
-          updated_header = []
-
-          for line in header:
-
-              if line.startswith("# ACTUALIZADO:"):
-                  updated_header.append(
-                      f"# ACTUALIZADO: {now}"
-                  )
-
-              elif line.startswith("# TOTAL CANALES:"):
-                  updated_header.append(
-                      f"# TOTAL CANALES: {total}"
-                  )
-
-              else:
-                  updated_header.append(line)
-
-          if not any(
-              x.startswith("# ACTUALIZADO:")
-              for x in header
-          ):
-              updated_header.append(
-                  f"# ACTUALIZADO: {now}"
-              )
-
-          if not any(
-              x.startswith("# TOTAL CANALES:")
-              for x in header
-          ):
-              updated_header.append(
-                  f"# TOTAL CANALES: {total}"
-              )
-
-          # Generar lista definitiva
-          output_lines = list(updated_header)
-
-          for entry in final_entries:
-              output_lines.extend(entry)
-
-          OUTPUT.write_text(
-              "\n".join(output_lines) + "\n",
-              encoding="utf-8"
-          )
-
-          print("================================")
-          print("RESUMEN DE ACTUALIZACIÓN")
-          print("================================")
-
-          for name in stats:
-              print(
-                  f"{name}: {stats[name]} canales añadidos"
-              )
-              print(
-                  f"{name}: {duplicates[name]} duplicados eliminados"
-              )
 
           print("--------------------------------")
-          print(f"TOTAL CANALES: {total}")
-          print(f"IDENTIFICADORES ÚNICOS: {len(seen_ids)}")
-          print("Lista final generada correctamente.")
-          print("================================")
+          print("UNIFICACIÓN FINALIZADA")
+          print(f"Canales finales: {total}")
+          print(f"Duplicados eliminados: {duplicates}")
+          print(f"Enlaces normalizados: {converted}")
+          print("--------------------------------")
+
           PY
 
-      # 8. Comprobar lista definitiva
+      # ==========================================
+      # COMPROBAR LISTA FINAL
+      # ==========================================
+
       - name: Comprobar lista final
         run: |
           set -e
@@ -364,81 +275,25 @@ jobs:
           test -s pitina.m3u
           grep -q "^#EXTM3U" pitina.m3u
 
-          python3 <<'PY'
-          import re
-          from pathlib import Path
-          from urllib.parse import urlsplit, parse_qs, unquote
-
-          content = Path("pitina.m3u").read_text(
-              encoding="utf-8"
-          )
-
-          entries = re.findall(
-              r'^#EXTINF:.*?(?=^#EXTINF:|\Z)',
-              content,
-              re.MULTILINE | re.DOTALL
-          )
-
-          ids = []
-
-          for match in re.findall(
-              r'acestream://([^\s"\'<>]+)',
-              content,
-              re.IGNORECASE
-          ):
-              raise SystemExit(
-                  "ERROR: Queda un enlace acestream:// sin convertir."
-              )
-
-          for match in re.findall(
-              r'getstream\?[^ \t"\'<>]*',
-              content,
-              re.IGNORECASE
-          ):
-              parsed = urlsplit(
-                  "http://placeholder/" + match
-              )
-
-              values = parse_qs(parsed.query).get("id", [])
-
-              for value in values:
-                  ids.append(unquote(value).lower())
-
-          if len(ids) != len(set(ids)):
-              raise SystemExit(
-                  "ERROR: Se han encontrado IDs getstream repetidos."
-              )
-
-          if re.search(
-              r'getstream\?id=',
-              content,
-              re.IGNORECASE
-          ):
-              if not re.search(
-                  r'http://127\.0\.0\.1:6878/ace/getstream\?id=',
-                  content
-              ):
-                  raise SystemExit(
-                      "ERROR: Los enlaces locales no tienen el formato esperado."
-                  )
-
-          channels = len(
-              re.findall(
-                  r'^#EXTINF:',
-                  content,
-                  re.MULTILINE
-              )
-          )
-
-          print("COMPROBACIÓN CORRECTA")
-          print(f"Canales finales: {channels}")
-          print(f"IDs getstream: {len(ids)}")
-          print("No quedan enlaces acestream://")
-          PY
+          echo "================================"
+          echo "LISTA FINAL"
+          echo "================================"
 
           echo "Tamaño: $(wc -c < pitina.m3u) bytes"
+          echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
 
-      # 9. Publicar cambios
+          echo "Enlaces AceStream normalizados:"
+          grep -c 'http://127.0.0.1:6878/ace/getstream?id=' pitina.m3u || true
+
+          echo "Enlaces AceStream antiguos restantes:"
+          grep -c 'acestream://' pitina.m3u || true
+
+          echo "================================"
+
+      # ==========================================
+      # PUBLICAR CAMBIOS
+      # ==========================================
+
       - name: Publicar cambios
         run: |
           set -e
@@ -451,6 +306,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No hay cambios. No se crea ningún commit."
           else
-            git commit -m "Actualizar listas"
+            git commit -m "Actualizar lista IPTV unificada"
             git push
           fi
