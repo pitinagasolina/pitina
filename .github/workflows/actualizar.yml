@@ -108,6 +108,7 @@ jobs:
           for file in lista1.m3u lista2.m3u lista3.m3u; do
             test -s "$file"
             grep -q "^#EXTM3U" "$file"
+
             echo "$file: $(wc -c < "$file") bytes"
             echo "Canales: $(grep -c '^#EXTINF:' "$file" || true)"
           done
@@ -169,8 +170,9 @@ jobs:
               url = url.strip()
 
               if url.lower().startswith("acestream://"):
-                  ace_id = url[len("acestream://"):].split("?")[0].split("#")[0]
-                  return unquote(ace_id).strip()
+                  return unquote(
+                      url[len("acestream://"):].split("?")[0].split("#")[0]
+                  ).strip()
 
               match = re.search(
                   r'[?&]id=([^&\s]+)',
@@ -183,83 +185,105 @@ jobs:
 
               return None
 
-          # La cabecera siempre procede de la LISTA 1.
-          preamble, _ = parse_playlist(FILES[0])
+          def is_sport_tv(entry):
+              text = "\n".join(entry).upper()
 
+              return (
+                  "SPORT TV" in text
+                  or "SPORT_TV" in text
+              )
+
+          def process_entries(entries):
+              global total, duplicates, converted
+
+              result = []
+
+              for entry in entries:
+                  stream_index = None
+                  ace_id = None
+
+                  for i, line in enumerate(entry):
+                      stripped = line.strip()
+
+                      if not stripped or stripped.startswith("#"):
+                          continue
+
+                      stream_index = i
+                      ace_id = extract_id(stripped)
+                      break
+
+                  if ace_id is not None:
+                      if not ace_id:
+                          continue
+
+                      normalized_id = ace_id.lower()
+
+                      if normalized_id in seen:
+                          duplicates += 1
+                          continue
+
+                      seen.add(normalized_id)
+
+                      entry[stream_index] = LOCAL_PREFIX + ace_id
+                      converted += 1
+
+                  result.append(entry)
+                  total += 1
+
+              return result
+
+          # Cabecera de la lista principal
+          preamble, entries1 = parse_playlist(FILES[0])
+
+          # Leer listas 2 y 3
+          _, entries2 = parse_playlist(FILES[1])
+          _, entries3 = parse_playlist(FILES[2])
+
+          final_entries = []
+
+          # PRIORIDAD 1: LISTA IPNS
+          final_entries.extend(process_entries(entries1))
+
+          # PRIORIDAD 2: BASE.M3U
+          final_entries.extend(process_entries(entries2))
+
+          # PRIORIDAD 3: BASE2.M3U
+          # SPORT TV primero, respetando el orden original.
+          sport_entries = [
+              entry for entry in entries3
+              if is_sport_tv(entry)
+          ]
+
+          other_entries = [
+              entry for entry in entries3
+              if not is_sport_tv(entry)
+          ]
+
+          print(f"SPORT TV detectados en base2: {len(sport_entries)}")
+
+          # Primero SPORT TV
+          final_entries.extend(process_entries(sport_entries))
+
+          # Después los demás canales de base2
+          final_entries.extend(process_entries(other_entries))
+
+          # Escribir lista final
           with open(OUTPUT, "w", encoding="utf-8") as out:
 
               for line in preamble:
                   if line.strip():
                       out.write(line + "\n")
 
-              # PRIORIDAD ESTRICTA:
-              # 1. lista1.m3u (IPNS)
-              # 2. lista2.m3u (base.m3u)
-              # 3. lista3.m3u (base2.m3u)
-
-              for filename in FILES:
-
-                  _, entries = parse_playlist(filename)
-
-                  added = 0
-                  removed = 0
-
-                  for entry in entries:
-
-                      stream_index = None
-                      ace_id = None
-
-                      for i, line in enumerate(entry):
-                          stripped = line.strip()
-
-                          if not stripped or stripped.startswith("#"):
-                              continue
-
-                          stream_index = i
-                          ace_id = extract_id(stripped)
-                          break
-
-                      # Eliminar entradas sin URL identificable
-                      # no forma parte de esta deduplicación.
-                      if ace_id is not None:
-
-                          if not ace_id:
-                              continue
-
-                          normalized_id = ace_id.lower()
-
-                          # Si el ID ya existe, prevalece
-                          # siempre la primera lista procesada.
-                          if normalized_id in seen:
-                              duplicates += 1
-                              removed += 1
-                              continue
-
-                          seen.add(normalized_id)
-
-                          # Convertir todos los enlaces AceStream
-                          # al formato del servidor local.
-                          entry[stream_index] = LOCAL_PREFIX + ace_id
-                          converted += 1
-
-                      # Conservar el bloque M3U original.
-                      for line in entry:
-                          out.write(line + "\n")
-
-                      added += 1
-                      total += 1
-
-                  print(
-                      f"{filename}: "
-                      f"{added} canales añadidos, "
-                      f"{removed} duplicados eliminados"
-                  )
+              for entry in final_entries:
+                  for line in entry:
+                      out.write(line + "\n")
 
           print("--------------------------------")
           print("UNIFICACIÓN FINALIZADA")
           print(f"Canales finales: {total}")
           print(f"Duplicados eliminados: {duplicates}")
           print(f"Enlaces normalizados: {converted}")
+          print(f"SPORT TV detectados en base2: {len(sport_entries)}")
           print("--------------------------------")
 
           PY
@@ -280,12 +304,13 @@ jobs:
           echo "================================"
 
           echo "Tamaño: $(wc -c < pitina.m3u) bytes"
+
           echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
 
-          echo "Enlaces AceStream normalizados:"
+          echo "Enlaces locales:"
           grep -c 'http://127.0.0.1:6878/ace/getstream?id=' pitina.m3u || true
 
-          echo "Enlaces AceStream antiguos restantes:"
+          echo "Enlaces AceStream antiguos:"
           grep -c 'acestream://' pitina.m3u || true
 
           echo "================================"
