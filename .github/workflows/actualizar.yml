@@ -17,9 +17,7 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v5
 
-      # ==========================================
-      # LISTA 1 - IPFS / IPNS (LISTA PRINCIPAL)
-      # ==========================================
+      # LISTA 1 - IPFS / IPNS
 
       - name: Resolver IPNS de lista 1
         env:
@@ -40,14 +38,13 @@ jobs:
             | sed 's#^/ipfs/##' || true)
 
           if [ -z "$CID_1" ]; then
-            echo "ERROR: No se pudo obtener el CID de la lista 1."
+            echo "ERROR: No se pudo obtener el CID."
             exit 1
           fi
 
-          echo "CID lista 1: $CID_1"
           echo "IPFS_CID_1=$CID_1" >> "$GITHUB_ENV"
 
-      - name: Descargar lista 1
+      - name: Descargar lista IPFS
         run: |
           set -e
 
@@ -59,12 +56,11 @@ jobs:
             -o lista1.m3u
 
           test -s lista1.m3u
+          grep -q "^#EXTM3U" lista1.m3u
 
-      # ==========================================
       # LISTA 2 - BASE.M3U
-      # ==========================================
 
-      - name: Descargar lista 2 (base.m3u)
+      - name: Descargar base.m3u
         run: |
           set -e
 
@@ -78,11 +74,9 @@ jobs:
           test -s lista2.m3u
           grep -q "^#EXTM3U" lista2.m3u
 
-      # ==========================================
       # LISTA 3 - BASE2.M3U
-      # ==========================================
 
-      - name: Descargar lista 3 (base2.m3u)
+      - name: Descargar base2.m3u
         run: |
           set -e
 
@@ -96,27 +90,9 @@ jobs:
           test -s lista3.m3u
           grep -q "^#EXTM3U" lista3.m3u
 
-      # ==========================================
-      # COMPROBAR DESCARGAS
-      # ==========================================
+      # UNIFICAR
 
-      - name: Comprobar descargas
-        run: |
-          set -e
-
-          for file in lista1.m3u lista2.m3u lista3.m3u; do
-            test -s "$file"
-            grep -q "^#EXTM3U" "$file"
-
-            echo "$file: $(wc -c < "$file") bytes"
-            echo "Canales: $(grep -c '^#EXTINF:' "$file" || true)"
-          done
-
-      # ==========================================
-      # UNIFICAR Y ELIMINAR DUPLICADOS
-      # ==========================================
-
-      - name: Unificar listas y normalizar AceStream
+      - name: Unificar listas respetando prioridad
         run: |
           set -e
 
@@ -124,23 +100,13 @@ jobs:
           import re
           from urllib.parse import unquote
 
-          FILES = [
-              "lista1.m3u",
-              "lista2.m3u",
-              "lista3.m3u"
-          ]
-
-          OUTPUT = "pitina.m3u"
-
-          LOCAL_PREFIX = "http://127.0.0.1:6878/ace/getstream?id="
+          PREFIX = "http://127.0.0.1:6878/ace/getstream?id="
 
           seen = set()
-          total = 0
-          duplicates = 0
-          converted = 0
+          stats = {}
 
           def parse_playlist(filename):
-              with open(filename, "r", encoding="utf-8-sig") as f:
+              with open(filename, encoding="utf-8-sig") as f:
                   lines = f.read().splitlines()
 
               preamble = []
@@ -151,7 +117,6 @@ jobs:
                   if line.startswith("#EXTINF:"):
                       if current is not None:
                           entries.append(current)
-
                       current = [line]
 
                   elif current is not None:
@@ -186,18 +151,16 @@ jobs:
 
           def is_sport_tv(entry):
               text = "\n".join(entry).upper()
+              return "SPORT TV" in text or "SPORT_TV" in text
 
-              return (
-                  "SPORT TV" in text
-                  or "SPORT_TV" in text
-              )
-
-          def process_entries(entries):
-              global total, duplicates, converted
-
+          def process(entries):
               result = []
+              duplicates = 0
+              converted = 0
 
-              for entry in entries:
+              for original in entries:
+                  entry = list(original)
+
                   stream_index = None
                   ace_id = None
 
@@ -215,81 +178,104 @@ jobs:
                       if not ace_id:
                           continue
 
-                      normalized_id = ace_id.lower()
+                      key = ace_id.lower()
 
-                      if normalized_id in seen:
+                      if key in seen:
                           duplicates += 1
                           continue
 
-                      seen.add(normalized_id)
+                      seen.add(key)
 
-                      entry[stream_index] = LOCAL_PREFIX + ace_id
+                      entry[stream_index] = PREFIX + ace_id
                       converted += 1
 
                   result.append(entry)
-                  total += 1
 
-              return result
+              return result, duplicates, converted
 
-          # Cabecera de la lista principal
-          preamble, entries1 = parse_playlist(FILES[0])
+          # Cargar las tres listas
+          preamble, ipfs = parse_playlist("lista1.m3u")
+          _, base = parse_playlist("lista2.m3u")
+          _, base2 = parse_playlist("lista3.m3u")
 
-          # Leer listas 2 y 3
-          _, entries2 = parse_playlist(FILES[1])
-          _, entries3 = parse_playlist(FILES[2])
+          # Separar SPORT TV de base2 sin alterar el orden relativo
+          sport = [e for e in base2 if is_sport_tv(e)]
+          other = [e for e in base2 if not is_sport_tv(e)]
 
-          final_entries = []
-
-          # PRIORIDAD 1: LISTA IPNS
-          final_entries.extend(process_entries(entries1))
-
-          # PRIORIDAD 2: BASE.M3U
-          final_entries.extend(process_entries(entries2))
-
-          # PRIORIDAD 3: BASE2.M3U
-          # SPORT TV primero, respetando el orden original.
-          sport_entries = [
-              entry for entry in entries3
-              if is_sport_tv(entry)
+          # PROCESAMIENTO ESTRICTO POR PRIORIDAD
+          blocks = [
+              ("IPFS", ipfs),
+              ("BASE", base),
+              ("SPORT_TV_BASE2", sport),
+              ("RESTO_BASE2", other),
           ]
 
-          other_entries = [
-              entry for entry in entries3
-              if not is_sport_tv(entry)
+          final_blocks = {}
+
+          for name, entries in blocks:
+              processed, duplicates, converted = process(entries)
+
+              final_blocks[name] = processed
+
+              stats[name] = {
+                  "originales": len(entries),
+                  "finales": len(processed),
+                  "duplicados": duplicates,
+                  "convertidos": converted,
+              }
+
+          # Construcción explícita: nunca se ordena globalmente
+          ordered_names = [
+              "IPFS",
+              "BASE",
+              "SPORT_TV_BASE2",
+              "RESTO_BASE2",
           ]
 
-          print(f"SPORT TV detectados en base2: {len(sport_entries)}")
+          with open("pitina.m3u", "w", encoding="utf-8") as out:
+              header = next(
+                  (line for line in preamble if line.startswith("#EXTM3U")),
+                  "#EXTM3U"
+              )
+              out.write(header + "\n")
 
-          # Primero SPORT TV
-          final_entries.extend(process_entries(sport_entries))
+              for name in ordered_names:
+                  for entry in final_blocks[name]:
+                      for line in entry:
+                          out.write(line + "\n")
 
-          # Después los demás canales de base2
-          final_entries.extend(process_entries(other_entries))
+          # Comprobaciones
+          assert ordered_names == [
+              "IPFS",
+              "BASE",
+              "SPORT_TV_BASE2",
+              "RESTO_BASE2",
+          ]
 
-          # Escribir lista final
-          with open(OUTPUT, "w", encoding="utf-8") as out:
+          total = sum(
+              len(final_blocks[name])
+              for name in ordered_names
+          )
 
-              for line in preamble:
-                  if line.strip():
-                      out.write(line + "\n")
+          print("\n========== RESULTADOS ==========")
 
-              for entry in final_entries:
-                  for line in entry:
-                      out.write(line + "\n")
+          for name in ordered_names:
+              print(
+                  f"{name}: "
+                  f"{stats[name]['finales']} canales "
+                  f"(originales: {stats[name]['originales']}, "
+                  f"duplicados: {stats[name]['duplicados']})"
+              )
 
           print("--------------------------------")
-          print("UNIFICACIÓN FINALIZADA")
-          print(f"Canales finales: {total}")
-          print(f"Duplicados eliminados: {duplicates}")
-          print(f"Enlaces normalizados: {converted}")
-          print(f"SPORT TV detectados en base2: {len(sport_entries)}")
-          print("--------------------------------")
+          print(f"TOTAL FINAL: {total}")
+          print(f"SPORT TV base2: {len(final_blocks['SPORT_TV_BASE2'])}")
+          print("ORDEN: IPFS > BASE > SPORT TV BASE2 > RESTO BASE2")
+          print("================================")
 
           PY
 
-      # ==========================================
-      # COMPROBAR LISTA FINAL
-      # ==========================================
+      # COMPROBAR RESULTADO
 
       - name: Comprobar lista final
         run: |
@@ -298,25 +284,18 @@ jobs:
           test -s pitina.m3u
           grep -q "^#EXTM3U" pitina.m3u
 
-          echo "================================"
-          echo "LISTA FINAL"
-          echo "================================"
-
-          echo "Tamaño: $(wc -c < pitina.m3u) bytes"
-
-          echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
+          echo "Canales finales:"
+          grep -c '^#EXTINF:' pitina.m3u
 
           echo "Enlaces locales:"
           grep -c 'http://127.0.0.1:6878/ace/getstream?id=' pitina.m3u || true
 
-          echo "Enlaces AceStream antiguos:"
-          grep -c 'acestream://' pitina.m3u || true
+          if grep -q 'acestream://' pitina.m3u; then
+            echo "ERROR: Quedan enlaces acestream://"
+            exit 1
+          fi
 
-          echo "================================"
-
-      # ==========================================
-      # PUBLICAR CAMBIOS
-      # ==========================================
+      # PUBLICAR
 
       - name: Publicar cambios
         run: |
@@ -328,7 +307,7 @@ jobs:
           git add pitina.m3u
 
           if git diff --cached --quiet; then
-            echo "No hay cambios. No se crea ningún commit."
+            echo "No hay cambios."
           else
             git commit -m "Actualizar lista IPTV unificada"
             git push
