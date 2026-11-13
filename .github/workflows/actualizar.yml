@@ -1,8 +1,9 @@
+
 name: Actualizar
 
 on:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -13,130 +14,313 @@ jobs:
     runs-on: ubuntu-26.04
 
     steps:
+      # 1. Descargar repositorio
       - name: Descargar repositorio
         uses: actions/checkout@v5
-    
+
+      # 2. Resolver IPNS de la nueva lista 1
       - name: Resolver IPNS de lista 1
         env:
-          IPNS_NAME_1: "k2k4r8lm8tkmuxbc8lkmq1in3v0oya1p6pe9o5bu0hu30br5ko08k2gb"
+          IPNS_NAME_1: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
         run: |
           set -e
-    
+
           curl -fsSL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 60 \
             "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME_1" \
             -o ipns-record-1.bin
-    
+
           CID_1=$(strings ipns-record-1.bin \
             | grep -oE '/ipfs/[A-Za-z0-9]+' \
             | head -n 1 \
-            | sed 's#^/ipfs/##')
-    
+            | sed 's#^/ipfs/##' || true)
+
           if [ -z "$CID_1" ]; then
             echo "ERROR: No se pudo obtener el CID de la lista 1."
             exit 1
           fi
-    
+
           echo "CID lista 1: $CID_1"
           echo "IPFS_CID_1=$CID_1" >> "$GITHUB_ENV"
-    
+
+      # 3. Descargar lista 1 desde IPFS
       - name: Descargar lista 1
         run: |
           set -e
-    
+
           curl -fL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/data/listas/lista_iptv.m3u" \
+            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/hashes.m3u" \
             -o lista1.m3u
-    
+
           test -s lista1.m3u
-    
-      - name: Resolver IPNS de lista 2
-        env:
-          IPNS_NAME_2: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
-        run: |
-          set -e
-    
-          curl -fsSL \
-            --retry 3 \
-            --retry-delay 5 \
-            --max-time 60 \
-            "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME_2" \
-            -o ipns-record-2.bin
-    
-          CID_2=$(strings ipns-record-2.bin \
-            | grep -oE '/ipfs/[A-Za-z0-9]+' \
-            | head -n 1 \
-            | sed 's#^/ipfs/##')
-    
-          if [ -z "$CID_2" ]; then
-            echo "ERROR: No se pudo obtener el CID de la lista 2."
-            exit 1
-          fi
-    
-          echo "CID lista 2: $CID_2"
-          echo "IPFS_CID_2=$CID_2" >> "$GITHUB_ENV"
-    
+
+      # 4. Descargar lista 2 desde GitHub
       - name: Descargar lista 2
         run: |
           set -e
-    
+
           curl -fL \
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_2/hashes.m3u" \
+            "https://raw.githubusercontent.com/pitinagasolina/pitina/refs/heads/main/base.m3u" \
             -o lista2.m3u
-    
+
           test -s lista2.m3u
-    
+
+      # 5. Descargar lista 3 desde GitHub
+      - name: Descargar lista 3
+        run: |
+          set -e
+
+          curl -fL \
+            --retry 3 \
+            --retry-delay 5 \
+            --max-time 120 \
+            "https://raw.githubusercontent.com/pitinagasolina/pitina/refs/heads/main/base2.m3u" \
+            -o lista3.m3u
+
+          test -s lista3.m3u
+
+      # 6. Comprobar las tres descargas
       - name: Comprobar descargas
         run: |
           set -e
-    
-          test -s lista1.m3u
-          test -s lista2.m3u
-    
-          grep -q "#EXTM3U" lista1.m3u
-          grep -q "#EXTM3U" lista2.m3u
-    
-          echo "Lista 1: $(wc -c < lista1.m3u) bytes"
-          echo "Lista 2: $(wc -c < lista2.m3u) bytes"
-    
-      - name: Combinar listas
+
+          for FILE in lista1.m3u lista2.m3u lista3.m3u; do
+            test -s "$FILE"
+            grep -q "^#EXTM3U" "$FILE"
+            echo "$FILE: $(wc -c < "$FILE") bytes"
+          done
+
+      # 7. Unificar las tres listas y eliminar duplicados
+      - name: Combinar listas y eliminar duplicados
         run: |
           set -e
-    
-          {
-            head -n 1 lista1.m3u
-            tail -n +2 lista1.m3u
-            tail -n +2 lista2.m3u
-          } > pitina.m3u
-    
+
+          python3 <<'PY'
+          import re
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          SOURCES = [
+              Path("lista1.m3u"),
+              Path("lista2.m3u"),
+              Path("lista3.m3u")
+          ]
+
+          OUTPUT = Path("pitina.m3u")
+
+          ACE_PATTERN = re.compile(
+              r'acestream://([a-fA-F0-9]{40})',
+              re.IGNORECASE
+          )
+
+          def parse_playlist(path):
+              lines = path.read_text(
+                  encoding="utf-8-sig",
+                  errors="replace"
+              ).splitlines()
+
+              header = []
+              entries = []
+              current = None
+
+              for line in lines:
+                  if line.startswith("#EXTINF:"):
+                      if current is not None:
+                          entries.append(current)
+
+                      current = [line]
+
+                  elif current is None:
+                      header.append(line)
+
+                  else:
+                      current.append(line)
+
+              if current is not None:
+                  entries.append(current)
+
+              return header, entries
+
+          # La lista 1 proporciona la cabecera principal
+          header, base_entries = parse_playlist(SOURCES[0])
+
+          if not base_entries:
+              raise SystemExit(
+                  "ERROR: La lista 1 no contiene canales."
+              )
+
+          # Registrar los identificadores de la lista principal
+          seen_ids = set()
+          final_entries = []
+
+          stats = {
+              "lista1": 0,
+              "lista2": 0,
+              "lista3": 0
+          }
+
+          duplicates = {
+              "lista1": 0,
+              "lista2": 0,
+              "lista3": 0
+          }
+
+          for index, source in enumerate(SOURCES):
+              name = f"lista{index + 1}"
+
+              _, entries = (
+                  (header, base_entries)
+                  if index == 0
+                  else parse_playlist(source)
+              )
+
+              for entry in entries:
+                  identifiers = []
+
+                  for line in entry:
+                      match = ACE_PATTERN.search(line)
+
+                      if match:
+                          identifiers.append(
+                              match.group(1).lower()
+                          )
+
+                  # Evitar duplicados por identificador AceStream
+                  if identifiers:
+                      if any(
+                          identifier in seen_ids
+                          for identifier in identifiers
+                      ):
+                          duplicates[name] += 1
+                          continue
+
+                      seen_ids.update(identifiers)
+
+                  final_entries.append(entry)
+                  stats[name] += 1
+
+          # Actualizar fecha y contador en la cabecera
+          now = datetime.now(
+              ZoneInfo("Europe/Madrid")
+          ).strftime("%d/%m/%Y %H:%M:%S")
+
+          total = len(final_entries)
+
+          updated_header = []
+          has_date = False
+          has_total = False
+
+          for line in header:
+              if line.startswith("# ACTUALIZADO:"):
+                  updated_header.append(
+                      f"# ACTUALIZADO: {now}"
+                  )
+                  has_date = True
+
+              elif line.startswith("# TOTAL CANALES:"):
+                  updated_header.append(
+                      f"# TOTAL CANALES: {total}"
+                  )
+                  has_total = True
+
+              else:
+                  updated_header.append(line)
+
+          if not has_date:
+              updated_header.append(f"# ACTUALIZADO: {now}")
+
+          if not has_total:
+              updated_header.append(f"# TOTAL CANALES: {total}")
+
+          # Generar la lista final
+          output_lines = list(updated_header)
+
+          for entry in final_entries:
+              output_lines.extend(entry)
+
+          OUTPUT.write_text(
+              "\n".join(output_lines) + "\n",
+              encoding="utf-8"
+          )
+
+          print("================================")
+          print("RESUMEN DE ACTUALIZACIÓN")
+          print("================================")
+
+          for name in stats:
+              print(
+                  f"{name}: {stats[name]} canales añadidos"
+              )
+              print(
+                  f"{name}: {duplicates[name]} duplicados descartados"
+              )
+
+          print("--------------------------------")
+          print(f"TOTAL CANALES: {total}")
+          print(f"IDs AceStream únicos: {len(seen_ids)}")
+          print("Lista final generada correctamente.")
+          print("================================")
+          PY
+
+      # 8. Comprobar lista final
       - name: Comprobar lista final
         run: |
           set -e
-    
+
           test -s pitina.m3u
           grep -q "^#EXTM3U" pitina.m3u
-    
-          echo "Lista final:"
+
+          python3 <<'PY'
+          import re
+          from pathlib import Path
+
+          content = Path("pitina.m3u").read_text(
+              encoding="utf-8"
+          )
+
+          ids = re.findall(
+              r'acestream://([a-fA-F0-9]{40})',
+              content,
+              re.IGNORECASE
+          )
+
+          normalized = [x.lower() for x in ids]
+
+          if len(normalized) != len(set(normalized)):
+              raise SystemExit(
+                  "ERROR: Se han encontrado IDs duplicados."
+              )
+
+          channels = len(
+              re.findall(r'^#EXTINF:', content, re.MULTILINE)
+          )
+
+          print(f"Canales finales: {channels}")
+          print(f"IDs AceStream: {len(normalized)}")
+          print("Comprobación correcta.")
+          PY
+
           echo "Tamaño: $(wc -c < pitina.m3u) bytes"
-          echo "Canales: $(grep -c '^#EXTINF:' pitina.m3u || true)"
-    
+
+      # 9. Publicar cambios
       - name: Publicar cambios
         run: |
           set -e
-    
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-    
+
           git add pitina.m3u
-    
+
           if git diff --cached --quiet; then
             echo "No hay cambios. No se crea ningún commit."
           else
