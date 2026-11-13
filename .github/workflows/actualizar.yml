@@ -17,9 +17,11 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v5
 
-      # LISTA 1 - IPFS / IPNS
+      # ==========================================
+      # LISTA 1 - IPFS
+      # ==========================================
 
-      - name: Resolver IPNS de lista 1
+      - name: Resolver IPNS
         env:
           IPNS_NAME_1: "k51qzi5uqu5dh5qej4b9wlcr5i6vhc7rcfkekhrxqek5c9lk6gdaiik820fecs"
         run: |
@@ -30,21 +32,21 @@ jobs:
             --retry-delay 5 \
             --max-time 60 \
             "https://delegated-ipfs.dev/routing/v1/ipns/$IPNS_NAME_1" \
-            -o ipns-record-1.bin
+            -o ipns-record.bin
 
-          CID_1=$(strings ipns-record-1.bin \
+          CID=$(strings ipns-record.bin \
             | grep -oE '/ipfs/[A-Za-z0-9]+' \
             | head -n 1 \
             | sed 's#^/ipfs/##' || true)
 
-          if [ -z "$CID_1" ]; then
-            echo "ERROR: No se pudo obtener el CID."
+          if [ -z "$CID" ]; then
+            echo "ERROR: No se pudo resolver IPNS."
             exit 1
           fi
 
-          echo "IPFS_CID_1=$CID_1" >> "$GITHUB_ENV"
+          echo "IPFS_CID=$CID" >> "$GITHUB_ENV"
 
-      - name: Descargar lista IPFS
+      - name: Descargar IPFS
         run: |
           set -e
 
@@ -52,13 +54,15 @@ jobs:
             --retry 3 \
             --retry-delay 5 \
             --max-time 120 \
-            "https://gateway.pinata.cloud/ipfs/$IPFS_CID_1/hashes.m3u" \
+            "https://gateway.pinata.cloud/ipfs/$IPFS_CID/hashes.m3u" \
             -o lista1.m3u
 
           test -s lista1.m3u
           grep -q "^#EXTM3U" lista1.m3u
 
-      # LISTA 2 - BASE.M3U
+      # ==========================================
+      # LISTA 2 - BASE
+      # ==========================================
 
       - name: Descargar base.m3u
         run: |
@@ -74,7 +78,9 @@ jobs:
           test -s lista2.m3u
           grep -q "^#EXTM3U" lista2.m3u
 
-      # LISTA 3 - BASE2.M3U
+      # ==========================================
+      # LISTA 3 - BASE2
+      # ==========================================
 
       - name: Descargar base2.m3u
         run: |
@@ -90,9 +96,11 @@ jobs:
           test -s lista3.m3u
           grep -q "^#EXTM3U" lista3.m3u
 
-      # UNIFICAR
+      # ==========================================
+      # PROCESAR Y GENERAR TRES BLOQUES
+      # ==========================================
 
-      - name: Unificar listas respetando prioridad
+      - name: Procesar listas por prioridad
         run: |
           set -e
 
@@ -103,34 +111,31 @@ jobs:
           PREFIX = "http://127.0.0.1:6878/ace/getstream?id="
 
           seen = set()
-          stats = {}
 
-          def parse_playlist(filename):
+          def parse(filename):
               with open(filename, encoding="utf-8-sig") as f:
                   lines = f.read().splitlines()
 
-              preamble = []
+              header = "#EXTM3U"
               entries = []
               current = None
 
               for line in lines:
-                  if line.startswith("#EXTINF:"):
+                  if line.startswith("#EXTM3U"):
+                      header = line
+                  elif line.startswith("#EXTINF:"):
                       if current is not None:
                           entries.append(current)
                       current = [line]
-
                   elif current is not None:
                       current.append(line)
-
-                  else:
-                      preamble.append(line)
 
               if current is not None:
                   entries.append(current)
 
-              return preamble, entries
+              return header, entries
 
-          def extract_id(url):
+          def get_id(url):
               url = url.strip()
 
               if url.lower().startswith("acestream://"):
@@ -149,14 +154,9 @@ jobs:
 
               return None
 
-          def is_sport_tv(entry):
-              text = "\n".join(entry).upper()
-              return "SPORT TV" in text or "SPORT_TV" in text
-
           def process(entries):
-              result = []
+              output = []
               duplicates = 0
-              converted = 0
 
               for original in entries:
                   entry = list(original)
@@ -171,7 +171,7 @@ jobs:
                           continue
 
                       stream_index = i
-                      ace_id = extract_id(stripped)
+                      ace_id = get_id(stripped)
                       break
 
                   if ace_id is not None:
@@ -185,104 +185,122 @@ jobs:
                           continue
 
                       seen.add(key)
-
                       entry[stream_index] = PREFIX + ace_id
-                      converted += 1
 
-                  result.append(entry)
+                  output.append(entry)
 
-              return result, duplicates, converted
+              return output, duplicates
 
-          # Cargar las tres listas
-          preamble, ipfs = parse_playlist("lista1.m3u")
-          _, base = parse_playlist("lista2.m3u")
-          _, base2 = parse_playlist("lista3.m3u")
+          def write_block(filename, entries):
+              with open(filename, "w", encoding="utf-8") as f:
+                  for entry in entries:
+                      for line in entry:
+                          f.write(line + "\n")
 
-          # Separar SPORT TV de base2 sin alterar el orden relativo
-          sport = [e for e in base2 if is_sport_tv(e)]
-          other = [e for e in base2 if not is_sport_tv(e)]
+          # Leer las tres fuentes
+          header, ipfs = parse("lista1.m3u")
+          _, base = parse("lista2.m3u")
+          _, base2 = parse("lista3.m3u")
 
-          # PROCESAMIENTO ESTRICTO POR PRIORIDAD
-          blocks = [
-              ("IPFS", ipfs),
-              ("BASE", base),
-              ("SPORT_TV_BASE2", sport),
-              ("RESTO_BASE2", other),
+          # FASE 1: IPFS
+          block1, dup1 = process(ipfs)
+          write_block("bloque_ipfs.m3u", block1)
+
+          # FASE 2: BASE
+          block2, dup2 = process(base)
+          write_block("bloque_base.m3u", block2)
+
+          # FASE 3: BASE2
+          sport = [
+              e for e in base2
+              if "SPORT TV" in "\n".join(e).upper()
+              or "SPORT_TV" in "\n".join(e).upper()
           ]
 
-          final_blocks = {}
-
-          for name, entries in blocks:
-              processed, duplicates, converted = process(entries)
-
-              final_blocks[name] = processed
-
-              stats[name] = {
-                  "originales": len(entries),
-                  "finales": len(processed),
-                  "duplicados": duplicates,
-                  "convertidos": converted,
-              }
-
-          # Construcción explícita: nunca se ordena globalmente
-          ordered_names = [
-              "IPFS",
-              "BASE",
-              "SPORT_TV_BASE2",
-              "RESTO_BASE2",
+          other = [
+              e for e in base2
+              if e not in sport
           ]
 
+          sport_block, dup3 = process(sport)
+          other_block, dup4 = process(other)
+
+          block3 = sport_block + other_block
+          write_block("bloque_base2.m3u", block3)
+
+          # Construcción física y secuencial
           with open("pitina.m3u", "w", encoding="utf-8") as out:
-              header = next(
-                  (line for line in preamble if line.startswith("#EXTM3U")),
-                  "#EXTM3U"
-              )
               out.write(header + "\n")
 
-              for name in ordered_names:
-                  for entry in final_blocks[name]:
-                      for line in entry:
-                          out.write(line + "\n")
+              for filename in [
+                  "bloque_ipfs.m3u",
+                  "bloque_base.m3u",
+                  "bloque_base2.m3u"
+              ]:
+                  with open(filename, encoding="utf-8") as f:
+                      out.write(f.read())
 
-          # Comprobaciones
-          assert ordered_names == [
-              "IPFS",
-              "BASE",
-              "SPORT_TV_BASE2",
-              "RESTO_BASE2",
-          ]
+          # Comprobar límites de los bloques
+          def count(filename):
+              with open(filename, encoding="utf-8") as f:
+                  return sum(
+                      line.startswith("#EXTINF:")
+                      for line in f
+                  )
 
-          total = sum(
-              len(final_blocks[name])
-              for name in ordered_names
-          )
+          n1 = count("bloque_ipfs.m3u")
+          n2 = count("bloque_base.m3u")
+          n3 = count("bloque_base2.m3u")
 
-          print("\n========== RESULTADOS ==========")
+          final_count = count("pitina.m3u")
 
-          for name in ordered_names:
-              print(
-                  f"{name}: "
-                  f"{stats[name]['finales']} canales "
-                  f"(originales: {stats[name]['originales']}, "
-                  f"duplicados: {stats[name]['duplicados']})"
-              )
+          assert final_count == n1 + n2 + n3
 
-          print("--------------------------------")
-          print(f"TOTAL FINAL: {total}")
-          print(f"SPORT TV base2: {len(final_blocks['SPORT_TV_BASE2'])}")
-          print("ORDEN: IPFS > BASE > SPORT TV BASE2 > RESTO BASE2")
+          # Verificar que los bloques concatenados son idénticos
+          with open("pitina.m3u", encoding="utf-8") as f:
+              final_lines = f.read().splitlines()
+
+          with open("bloque_ipfs.m3u", encoding="utf-8") as f:
+              b1 = f.read().splitlines()
+
+          with open("bloque_base.m3u", encoding="utf-8") as f:
+              b2 = f.read().splitlines()
+
+          with open("bloque_base2.m3u", encoding="utf-8") as f:
+              b3 = f.read().splitlines()
+
+          expected = [header] + b1 + b2 + b3
+          assert final_lines == expected, "ERROR: Orden de bloques incorrecto"
+
+          print("================================")
+          print("ORDEN VERIFICADO")
+          print("================================")
+          print(f"IPFS: {n1}")
+          print(f"BASE: {n2}")
+          print(f"BASE2: {n3}")
+          print(f"SPORT TV BASE2: {len(sport_block)}")
+          print(f"TOTAL: {final_count}")
+          print(f"Duplicados eliminados: {dup1 + dup2 + dup3 + dup4}")
+          print("Orden: IPFS > BASE > BASE2")
           print("================================")
 
           PY
 
-      # COMPROBAR RESULTADO
+      # ==========================================
+      # VALIDACIÓN FINAL
+      # ==========================================
 
-      - name: Comprobar lista final
+      - name: Validar lista final
         run: |
           set -e
 
           test -s pitina.m3u
           grep -q "^#EXTM3U" pitina.m3u
+
+          if grep -qi 'acestream://' pitina.m3u; then
+            echo "ERROR: Quedan enlaces acestream://"
+            exit 1
+          fi
 
           echo "Canales finales:"
           grep -c '^#EXTINF:' pitina.m3u
@@ -290,12 +308,9 @@ jobs:
           echo "Enlaces locales:"
           grep -c 'http://127.0.0.1:6878/ace/getstream?id=' pitina.m3u || true
 
-          if grep -q 'acestream://' pitina.m3u; then
-            echo "ERROR: Quedan enlaces acestream://"
-            exit 1
-          fi
-
+      # ==========================================
       # PUBLICAR
+      # ==========================================
 
       - name: Publicar cambios
         run: |
