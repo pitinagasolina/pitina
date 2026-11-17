@@ -77,14 +77,12 @@ http://127.0.0.1:6878/ace/getstream?id=1d9e4ec1c78ae31da88a5f8582eb95d29d329d8d
 http://127.0.0.1:6878/ace/getstream?id=5f09f7cae7b7d3fb9b7e492dbab3edfe1e70067c
 #EXTINF:-1 group-title="DEPORTES",À Punt 1080p *
 http://127.0.0.1:6878/ace/getstream?id=ad7a52a05039e95e73a334e9d4518832ff84f448
-#EXTINF:-1 tvg-logo="https://yt3.googleusercontent.com/hXinMW0gpJZ21tefgfVij_aZ3V1g3zS2-Dw5HN2zOXkFZiYrWSHhcEDp9xIKN93eVAgH550-Og=s900-c-k-c0x00ffffff-no-rj" group-title="MOTOGP",Sky Sport MotoGP 1080p **
-http://127.0.0.1:6878/ace/getstream?id=c349a1a8953a4f64c61a6614aec63e11dc7eff96
 #EXTINF:-1 tvg-logo="https://espnpressroom.com/us/files/2023/02/New-NBA-Logo.png" group-title="NBA",NBA ESPN 720p *
 http://127.0.0.1:6878/ace/getstream?id=c50472a723a9c8412dc51fc6ae2761e113014b00
 #EXTINF:-1 tvg-logo="https://www.vhv.rs/dpng/d/431-4310509_nba-league-pass-logo-png-transparent-nba-league.png" group-title="NBA",NBA League Pass 1080p *
-http://127.0.0.1:6878/ace/getstream?id=cd7f8f210268b161f399c626cad5b02678f86f7f
-#EXTINF:-1 tvg-logo="https://www.vhv.rs/dpng/d/431-4310509_nba-league-pass-logo-png-transparent-nba-league.png" group-title="NBA",NBA League Pass 1080p *
 http://127.0.0.1:6878/ace/getstream?id=594d954ecc68f601040630de6671cd648e0964f6
+#EXTINF:-1 tvg-logo="https://www.vhv.rs/dpng/d/431-4310509_nba-league-pass-logo-png-transparent-nba-league.png" group-title="NBA",NBA League Pass 1080p *
+http://127.0.0.1:6878/ace/getstream?id=cd7f8f210268b161f399c626cad5b02678f86f7f
 #EXTINF:-1 tvg-logo="https://pbs.twimg.com/profile_images/1951065414118539266/9Go2oZlV_400x400.jpg" group-title="TENNIS",Sky Sport Tennis 1080p **
 http://127.0.0.1:6878/ace/getstream?id=a0adfe52f8a9275067d559debe17523c655975e5
 #EXTINF:-1 tvg-id="DAZN_Baloncesto_720p_" tvg-name="DAZN Baloncesto 720p *" tvg-logo="https://i.ibb.co/FVzKq1y/dazn1.png" group-title="DAZN",DAZN Baloncesto 720p *
